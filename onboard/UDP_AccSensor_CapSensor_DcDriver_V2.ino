@@ -224,9 +224,14 @@ void setup() {
     while (1)
       Serial.println("MPR121 NOT FOUND");
       sensorDataString ="MPR121 NOT FOUND";
-      Udp.beginPacket("10.42.0.1", 2390); // Replace with the Python code IP and port
+      // --- SEND DATA TO COMPUTER 1 ---
+      Udp.beginPacket("172.16.71.4", 2390); // Replace with the Python code IP and port
       Udp.write(sensorDataString.c_str());
       Udp.endPacket();
+      // // --- SEND DATA TO COMPUTER 2 (pracsys) ---
+      // Udp.beginPacket("172.16.71.4", 2390); // Replace with the Python code IP and port
+      // Udp.write(sensorDataString.c_str());
+      // Udp.endPacket();
   }
   Serial.println("Configuring MPR121...");
   // 2. configure the settings

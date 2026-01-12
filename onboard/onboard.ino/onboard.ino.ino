@@ -1,5 +1,5 @@
 #include <SPI.h>
-#include <WiFi.h>
+#include <WiFiNINA.h>
 #include <WiFiUdp.h>
 #include <Wire.h>
 // #include "ICM_20948.h" // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
@@ -9,10 +9,11 @@
 #include <Arduino_LSM6DS3.h>
 
 int status = WL_IDLE_STATUS;
-char ssid[] = "tensegrity"; // your network SSID (name)
-char pass[] = "augustin";        // your network password (use for WPA, or use as key for WEP)
+char ssid[] = "CS-Robots";         // your network SSID (name)/"not-ru-net"
+char pass[] = "kaQcVTdG4CfpDWqZ";  // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;                // your network key Index number (needed only for WEP)
-char PC_IP[] = "10.42.0.1"; // change to PC IP address
+char PC_IP[] = "172.16.71.35"; // change to PC IP address
+char PC_IP_2[] = "172.16.71.4"; // second computer
 
 unsigned int localPort = 2390; // local port to listen on
 
@@ -21,6 +22,11 @@ unsigned int localPort = 2390; // local port to listen on
 /////////////////////////
 
 #define N_Arduino 2 // To change in function of which Arduino is used
+// char arduinoIP[] = "172.16.71.78";
+
+// char arduinoIP[] = "172.16.71.79";
+char arduinoIP[] = "172.16.71.80";
+
 
 int motor_numbers[3][2] = {{2,4},{1,3},{0,5}};
 #define Nb_motors 6 // To change in function of the number of motor used
@@ -126,19 +132,30 @@ void setup() {
   }
 
   String fv = WiFi.firmwareVersion(); 
-  if (fv != "1.5.0") {
+  if (fv != "2.0.0") {
     // Serial.println("Firmware");
     // Don't continue:
     while (true);
   }
 
   // Attempt to connect to WiFi network:
-  while (status != WL_CONNECTED){
+  while (status != WL_CONNECTED) {
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    IPAddress ip;
+    ip.fromString(arduinoIP);
+    IPAddress dns;
+    dns.fromString("8.8.8.8");
+    IPAddress gateway;
+    gateway.fromString("172.16.71.65");
+    IPAddress netmask;
+    netmask.fromString("255.255.255.224");
+    WiFi.config(ip, dns, gateway, netmask);
+
     status = WiFi.begin(ssid, pass);
-    // status = WiFi.begin(ssid);
+    //WiFi.config("172.16.71.74");
+    //Serial.println(status);
     // Wait 1 second for connection:
-    // Serial.println("Connecting...");
+    Serial.println(status);
     delay(1000);
   }
 
@@ -189,7 +206,12 @@ void setup() {
     // Serial.println("Failed to initialize IMU!");
     sensorDataString ="Failed to initialize IMU!";
     // Udp.beginPacket("10.42.0.1", 2390); // Replace with the Python code IP and port
+    // first PC
     Udp.beginPacket(PC_IP, 2390); // Replace with the Python code IP and port
+    Udp.write(sensorDataString.c_str());
+    Udp.endPacket();
+    //second PC
+    Udp.beginPacket(PC_IP_2, 2390);
     Udp.write(sensorDataString.c_str());
     Udp.endPacket();
     while (1);
@@ -252,7 +274,14 @@ void setup() {
       // Serial.println("MPR121 NOT FOUND");
       sensorDataString ="MPR121 NOT FOUND";
       // Udp.beginPacket("10.42.0.1", 2390); // Replace with the Python code IP and port
+      
+      // Send the sensor data to the first PC
       Udp.beginPacket(PC_IP, 2390); // Replace with the Python code IP and port
+      Udp.write(sensorDataString.c_str());
+      Udp.endPacket();
+
+      // Send the sensor data to the second PC
+      Udp.beginPacket(PC_IP_2, 2390); // Replace with the Python code IP and port
       Udp.write(sensorDataString.c_str());
       Udp.endPacket();
   }
@@ -394,7 +423,12 @@ void loop() {
   }
   // Send the sensor data through UDP
   // Udp.beginPacket("10.42.0.1", 2390); // Replace with the Python code IP and port
+  // first PC
   Udp.beginPacket(PC_IP, 2390); // Replace with the Python code IP and port
+  Udp.write(sensorDataString.c_str());
+  Udp.endPacket();
+  // second PC
+  Udp.beginPacket(PC_IP_2, 2390); // Replace with the Python code IP and port
   Udp.write(sensorDataString.c_str());
   Udp.endPacket();
 

@@ -38,7 +38,7 @@ class TensegrityRobot:
         self.d_error = [0] * self.num_motors
         self.command = [0] * self.num_motors
         self.speed = [0] * self.num_motors
-        self.flip = [1, -1, 1, 1, -1, -1] # flip direction of motors
+        self.flip = [1, 1, 1, 1, 1, 1] # flip direction of motors
         self.accelerometer = [[0]*3 for _ in range(3)]
         self.gyroscope = [[0]*3 for _ in range(3)]
         self.encoder_counts = [0]*self.num_motors
@@ -75,7 +75,7 @@ class TensegrityRobot:
         self.UDP_PORT = 2390     # Same port used in the Arduino sketch
         self.sock_receive = None
         self.sock_send = None
-        self.addresses = [None] * self.num_arduino
+        self.addresses = [("172.16.71.78",11311), ("172.16.71.79",11311), ("172.16.71.80",11311)] [None] * self.num_arduino
         self.offset = None # Nb of leading end ending 0 preventing errors 
 
         #keyboard variables
@@ -97,8 +97,7 @@ class TensegrityRobot:
         self.control_pub = rospy.Publisher('control_msg', TensegrityStamped, queue_size=10) ## correct ??
 
         package_path = rospkg.RosPack().get_path('tensegrity')
-        calibration_file = os.path.join(package_path,'calibration/new_calibration.json')
-        
+        calibration_file = os.path.join(package_path,'calibration/calibration_charles.xls')
         #self.m = np.array([0.04437, 0.06207, 0.02356, 0.04440, 0.04681, 0.05381, 0.02841, 0.03599, 0.03844])
         #self.b = np.array([15.763, 13.524, 15.708, 10.084, 15.628, 15.208, 16.356, 12.575, 13.506])
         
