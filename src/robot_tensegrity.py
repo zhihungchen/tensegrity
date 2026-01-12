@@ -11,50 +11,76 @@ from scipy.spatial.transform import Rotation as R
 import rospy
 import rospkg
 import socket
-#from tensegrity.msg import Motor, Info, MotorsStamped, Sensor, SensorsStamped, Imu, ImuStamped
+
 from tensegrity.msg import Motor, Info, Sensor, Imu, TensegrityStamped
-#from geometry_msgs.msg import QuaternionStamped
+
+from robot_config import RobotConfig  # <--- cfg
 
 
 class FileError(Exception):
     pass
+
+
 class S_Q_Pressed(Exception):
     pass
 
+
 class TensegrityRobot:
-    def __init__(self):
-        self.num_sensors = 9
-        self.num_motors = 6
-        self.num_imus = 2
-        self.num_arduino = 3
-        self.min_length = 100
-        self.pos = [0] * self.num_motors
-        self.cap = [0] * self.num_sensors
-        self.length = [0] * self.num_sensors
-        self.imu = [[0, 0, 0]] * self.num_imus
-        self.error = [0] * self.num_motors
-        self.prev_error = [0] * self.num_motors
-        self.cum_error = [0] * self.num_motors
-        self.d_error = [0] * self.num_motors
-        self.command = [0] * self.num_motors
-        self.speed = [0] * self.num_motors
-        self.flip = [1, 1, 1, 1, 1, 1] # flip direction of motors
+    def __init__(self, cfg: RobotConfig):
+        
+        # --- from config ---#
+        self.cfg = cfg
+
+        self.num_sensors = cfg.num_sensors
+        self.num_motors = cfg.num_motors
+        self.num_imus = cfg.num_imus
+        self.num_arduino = cfg.num_arduino
+        self.min_length = cfg.min_length
+
+        self.pos = [0] * cfg.num_motors
+        self.cap = [0] * cfg.num_sensors
+        self.length = [0] * cfg.num_sensors
+        self.imu = [[0, 0, 0]] * cfg.num_imus
+        self.error = [0] * cfg.num_motors
+        self.prev_error = [0] * cfg.num_motors
+        self.cum_error = [0] * cfg.num_motors
+        self.d_error = [0] * cfg.num_motors
+        self.command = [0] * cfg.num_motors
+        self.speed = [0] * cfg.num_motors
+
+        self.flip = list(cfg.flip) # flip direction of motors
+
         self.accelerometer = [[0]*3 for _ in range(3)]
         self.gyroscope = [[0]*3 for _ in range(3)]
-        self.encoder_counts = [0]*self.num_motors
-        self.encoder_length = [0]*self.num_motors
-        self.RANGE = 100
-        self.LEFT_RANGE = 100
-        self.max_speed = 70
-        self.tol = 0.15
-        self.low_tol = 0.15
-        self.P = 10.0
-        self.I = 0.01
-        self.D = 0.5
-        self.gear_ratio = 150
-        self.winch_diameter = 6.35
-        self.encoder_resolution = 12
-        
+
+        self.encoder_counts = [0]*cfg.num_motors
+        self.encoder_length = [0]*cfg.num_motors
+
+        self.RANGE = cfg.RANGE
+        self.LEFT_RANGE = cfg.LEFT_RANGE
+        self.max_speed = cfg.max_speed
+        self.init_speed = cfg.init_speed
+
+        self.tol = cfg.tol
+        self.low_tol = cfg.low_tol
+        self.P = cfg.P
+        self.I = cfg.I
+        self.D = cfg.D
+
+        self.gear_ratio = cfg.gear_ratio
+        self.winch_diameter = cfg.winch_diameter
+        self.encoder_resolution = cfg.encoder_resolution
+
+        # UDP variables
+        self.UDP_IP = cfg.UDP_IP  # Listen to all incoming interfaces
+        self.UDP_PORT = cfg.UDP_PORT     # Same port used in the Arduino sketch
+        self.sock_receive = None
+        self.sock_send = None
+        self.addresses = [("172.16.71.78",11311), ("172.16.71.79",11311), ("172.16.71.80",11311)] #[None] * self.num_arduino
+        self.offset = None # Nb of leading end ending 0 preventing errors 
+
+
+        # --- robot states ---#
         self.num_steps = None
         self.state = None
         self.states = None
@@ -67,16 +93,8 @@ class TensegrityRobot:
         self.m = None
         self.b = None
         self.stop_msg = None
-        self.init_speed = None
         self.which_Arduino = None
         
-        # UDP variables
-        self.UDP_IP = "0.0.0.0"  # Listen to all incoming interfaces
-        self.UDP_PORT = 2390     # Same port used in the Arduino sketch
-        self.sock_receive = None
-        self.sock_send = None
-        self.addresses = [("172.16.71.78",11311), ("172.16.71.79",11311), ("172.16.71.80",11311)] #[None] * self.num_arduino
-        self.offset = None # Nb of leading end ending 0 preventing errors 
 
         #keyboard variables
         self.zero_pressed = False
@@ -85,7 +103,21 @@ class TensegrityRobot:
         self.three_pressed = False
         self.four_pressed = False
         self.five_pressed = False
-        
+    
+    #----------------------------------------------------------------------#
+    def load_states_from_json(self, path):
+        try:
+            with open(path, 'r') as f:
+                data = json.load(f)
+                self.states = np.array(data["states"])
+                self.num_steps = len(self.states)
+                self.state = 0
+                self.done = [False] * self.num_motors
+                print(f"[INFO] Loaded gait from {path}, total steps: {self.num_steps}")
+        except Exception as e:
+            print(f"[ERROR] Failed to load gait from {path}: {e}")
+            self.states = np.ones((1, self.num_motors))  # fallback
+            self.num_steps = 1
 
     def initialize(self):
 
@@ -131,9 +163,25 @@ class TensegrityRobot:
         #                    [1.0,1.0,1.0,1.0,1.0,1.0],
         #                    [1.0,1.0,1.0,1.0,1.0,0.2]]) # testing one at a time
     
-        self.states = np.array([[1.0, 1.0, 0.1, 1.0, 1.0, 0.1],[0.0, 1.0, 1.0, 0.0, 1.0, 0.1],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-                                [1.0, 0.1, 1.0, 1.0, 0.1, 1.0],[1.0, 1.0, 0.0, 1.0, 0.1, 0.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-                                [0.1, 1.0, 1.0, 0.1, 1.0, 1.0],[1.0, 0.0, 1.0, 0.1, 0.0, 1.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]]) # quasi-static rolling with rest states
+
+
+        # self.states = np.array([[1.0, 1.0, 0.1, 1.0, 1.0, 0.1],[0.0, 1.0, 1.0, 0.0, 1.0, 0.1],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        #                         [1.0, 0.1, 1.0, 1.0, 0.1, 1.0],[1.0, 1.0, 0.0, 1.0, 0.1, 0.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        #                         [0.1, 1.0, 1.0, 0.1, 1.0, 1.0],[1.0, 0.0, 1.0, 0.1, 0.0, 1.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]]) # quasi-static rolling with rest states
+        
+        package_path = rospkg.RosPack().get_path('tensegrity')
+        states_path = os.path.join(package_path, 'src', 'states', 'quasi_static.json')
+        self.load_states_from_json(states_path)
+
+
+        #self.num_steps = len(self.states)
+        #self.state = 0
+        self.offset = 3
+        #self.done = np.array([False] * self.num_motors)
+        self.stop_msg = ' '.join(['0'] * (self.num_motors+2*self.offset))
+        #self.init_speed = 70
+
+
         # self.states = np.array([[0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 1], [0, 0, 0.7, 0, 1.2, 1], [1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 0, 0], [0.7, 0, 0, 1, 0, 1.2], [1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 1, 0], [0, 0.7, 0, 1.2, 1, 0], [1, 1, 1, 1, 1, 1]]) # cw
         # self.states = np.array([[1, 1, 1, 0, 1, 1], [1, 0, 1, 0, 1, 1], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1]]) # ccw
 
@@ -160,12 +208,8 @@ class TensegrityRobot:
         #                    [1.0, 1.0, 0.1, 1.0, 1.0, 0.1],[1.0, 0.1, 0.1, 1.0, 0.1, 1.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         #                    [0.1, 1.0, 1.0, 0.1, 1.0, 1.0],[0.1, 1.0, 0.1, 1.0, 1.0, 0.1],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]]) # quasi-static rolling with rest states
 
-        self.num_steps = len(self.states)
-        self.state = 0
-        self.offset = 3
-        self.done = np.array([False] * self.num_motors)
-        self.stop_msg = ' '.join(['0'] * (self.num_motors+2*self.offset))
-        self.init_speed = 70
+
+
 
     def read_calibration_file(self, filename):
         try : 
@@ -625,5 +669,6 @@ class TensegrityRobot:
             
         
 if __name__ == '__main__':
-    tensegrity_robot = TensegrityRobot()
+    cfg = RobotConfig() 
+    tensegrity_robot = TensegrityRobot(cfg)
     tensegrity_robot.run()
