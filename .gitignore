@@ -1,1 +1,9 @@
 src/__pycache__/
+*.pyc
+
+# ROS workspaces
+ros_ws/build/
+ros_ws/devel/
+ros_ws/intstall/
+ros_ws/logs/
+ros_ws/.catkin_tools/
