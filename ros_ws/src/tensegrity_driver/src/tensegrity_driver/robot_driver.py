@@ -8,13 +8,13 @@ import xlrd
 import numpy as np
 from pynput import keyboard
 from scipy.spatial.transform import Rotation as R
-import rospy
 import rospkg
 import socket
 
 from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 
 from tensegrity_driver.robot_config import RobotConfig  # <--- cfg
+from tensegrity_driver.ros_iface import RosPublisher
 
 
 class FileError(Exception):
@@ -84,7 +84,7 @@ class TensegrityRobot:
         self.num_steps = None
         self.state = None
         self.states = None
-        self.control_pub = None
+        self.ros_publisher = None
         self.my_listener = None
         self.keep_going = True
         self.quitting = False
@@ -119,14 +119,13 @@ class TensegrityRobot:
             self.states = np.ones((1, self.num_motors))  # fallback
             self.num_steps = 1
 
-    def initialize(self):
+    def initialize(self, ros_publisher=None):
 
         self.my_listener = keyboard.Listener(on_press=self.on_press, on_release=self.on_release)
         self.my_listener.daemon = True
         self.my_listener.start()
         
-        rospy.init_node('tensegrity')
-        self.control_pub = rospy.Publisher('control_msg', TensegrityStamped, queue_size=10) ## correct ??
+        self.ros_publisher = ros_publisher or RosPublisher()
 
         package_path = rospkg.RosPack().get_path('tensegrity_driver')
         calibration_file = os.path.join(package_path,'calibration/calibration_charles.xls')
@@ -271,9 +270,6 @@ class TensegrityRobot:
         control_msg = TensegrityStamped()
         # strain_msg = SensorsStamped()
         # imu_msg = ImuStamped()
-        # get timestamp
-        timestamp = rospy.Time.now()
-        control_msg.header.stamp = timestamp
         # strain_msg.header.stamp = timestamp
         # imu_msg.header.stamp = timestamp
         # gait info
@@ -331,7 +327,9 @@ class TensegrityRobot:
             IMU.gz = self.gyroscope[rod][2]
             control_msg.imus.append(IMU)
         # publish
-        self.control_pub.publish(control_msg)
+        if self.ros_publisher is None:
+            raise RuntimeError("RosPublisher is not initialized. Call initialize() first.")
+        self.ros_publisher.publish_control_msg(control_msg)
         # strain_pub.publish(strain_msg)
         # imu_pub.publish(imu_msg)
         
