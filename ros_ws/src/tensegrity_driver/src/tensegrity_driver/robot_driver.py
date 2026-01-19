@@ -4,6 +4,8 @@ import time
 import math
 from math import cos, sin
 import json
+from dataclasses import dataclass
+from typing import List, Optional
 import xlrd
 import numpy as np
 from pynput import keyboard
@@ -23,6 +25,28 @@ class FileError(Exception):
 
 class S_Q_Pressed(Exception):
     pass
+
+
+@dataclass
+class SensorFrame:
+    which_arduino: Optional[int]
+    cap: List[float]
+    length: List[float]
+    pos: List[float]
+    accelerometer: List[List[float]]
+    gyroscope: List[List[float]]
+    encoder_counts: List[float]
+    encoder_length: List[float]
+
+
+@dataclass
+class ControlCommand:
+    which_arduino: Optional[int]
+    command: List[float]
+    speed: List[float]
+    done: List[bool]
+    state: int
+    command_msg: str
 
 
 class TensegrityRobot:
@@ -266,7 +290,7 @@ class TensegrityRobot:
             delay_time = 0
         time.sleep(delay_time/1000)
         
-    def sendRosMSG(self):
+    def sendRosMSG(self, frame: SensorFrame, command: Optional[ControlCommand]):
         # send ROS messages
         control_msg = TensegrityStamped()
         # strain_msg = SensorsStamped()
@@ -289,23 +313,25 @@ class TensegrityRobot:
         info.D = self.D
         control_msg.info = info
         # motors
+        command_speeds = command.speed if command else [0] * self.num_motors
+        command_done = command.done if command else self.done
         for motor_id in range(self.num_motors):
            motor = Motor()
            motor.id = motor_id
-           motor.position = self.pos[motor_id]
+           motor.position = frame.pos[motor_id]
            motor.target = self.states[self.state,motor_id]
-           motor.speed = self.command[motor_id] * self.max_speed #abs(command[motor_id]) * max_speed
+           motor.speed = command_speeds[motor_id] #abs(command[motor_id]) * max_speed
            # motor.direction = command[motor_id] > 0
-           motor.done = self.done[motor_id]
-           motor.encoder_counts = int(self.encoder_counts[motor_id])
-           motor.encoder_length = self.encoder_length[motor_id]
+           motor.done = command_done[motor_id]
+           motor.encoder_counts = int(frame.encoder_counts[motor_id])
+           motor.encoder_length = frame.encoder_length[motor_id]
            control_msg.motors.append(motor)
         # sensors
         for sensor_id in range(self.num_sensors):
            sensor = Sensor()
            sensor.id = sensor_id
-           sensor.length = self.length[sensor_id]
-           sensor.capacitance = self.cap[sensor_id]
+           sensor.length = frame.length[sensor_id]
+           sensor.capacitance = frame.cap[sensor_id]
            control_msg.sensors.append(sensor)
         # imu
         # for imu_id in range(self.num_imus):
@@ -323,19 +349,19 @@ class TensegrityRobot:
         for rod in range(3):
             IMU = Imu()
             IMU.id = rod
-            IMU.ax = self.accelerometer[rod][0]
-            IMU.ay = self.accelerometer[rod][1]
-            IMU.az = self.accelerometer[rod][2]
-            IMU.gx = self.gyroscope[rod][0]
-            IMU.gy = self.gyroscope[rod][1]
-            IMU.gz = self.gyroscope[rod][2]
+            IMU.ax = frame.accelerometer[rod][0]
+            IMU.ay = frame.accelerometer[rod][1]
+            IMU.az = frame.accelerometer[rod][2]
+            IMU.gx = frame.gyroscope[rod][0]
+            IMU.gy = frame.gyroscope[rod][1]
+            IMU.gz = frame.gyroscope[rod][2]
             control_msg.imus.append(IMU)
         # publish
         self.control_pub.publish(control_msg)
         # strain_pub.publish(strain_msg)
         # imu_pub.publish(imu_msg)
         
-    def read(self):
+    def read(self) -> Optional[SensorFrame]:
         data, addr = self.sock_receive.recvfrom(255)  # Receive data (up to 255 bytes)
         # Decode the data (assuming it's sent as a string)
         received_data = data.decode('utf-8')
@@ -410,25 +436,38 @@ class TensegrityRobot:
                 self.gyroscope[self.which_Arduino][1] = sensor_array[11]    # gy
                 self.gyroscope[self.which_Arduino][2] = sensor_array[12]    # gz
 
+                return SensorFrame(
+                    which_arduino=self.which_Arduino,
+                    cap=list(self.cap),
+                    length=list(self.length),
+                    pos=list(self.pos),
+                    accelerometer=[list(axis) for axis in self.accelerometer],
+                    gyroscope=[list(axis) for axis in self.gyroscope],
+                    encoder_counts=list(self.encoder_counts),
+                    encoder_length=list(self.encoder_length),
+                )
             else:
                 if (None in self.addresses) :
                     for i in range(len(self.addresses)):
                         if(self.addresses[i] == None) : 
                             print('Arduino '+str(i)+' wrongly initialized, please reboot Arduino')
                         else:     
-                            self.send_command(self.stop_msg, self.addresses[i],0)
+                            print('Arduino '+str(i)+' active')
 
                 else :
                     print('+')
-                    for i in range(len(self.addresses)) :
-                        self.send_command(self.stop_msg, self.addresses[i],0)
+                return None
             
         except :
             print('There has been an error')
             print('Received data:', received_data)
+            return None
 
-    def compute_command(self) :
+    def compute_command(self, frame: SensorFrame) -> ControlCommand:
         command_msg = self.stop_msg.split()
+        command = [0] * self.num_motors
+        speed = [0] * self.num_motors
+        done = list(self.done)
         for i in range(self.num_motors):
             # two tolerances for shorter and longer commands
             if self.states[self.state, i] < 0.5:
@@ -437,39 +476,46 @@ class TensegrityRobot:
                 tolerance = self.tol
 
             #check if motor reached the target
-            if self.pos[i] + tolerance > self.states[self.state, i] and self.pos[i] - tolerance < self.states[self.state, i]:
-                self.done[i] = True
-                self.command[i] = 0
-            if not self.done[i]:
-                self.error[i] = self.pos[i] - self.states[self.state, i]
+            if frame.pos[i] + tolerance > self.states[self.state, i] and frame.pos[i] - tolerance < self.states[self.state, i]:
+                done[i] = True
+                command[i] = 0
+            if not done[i]:
+                self.error[i] = frame.pos[i] - self.states[self.state, i]
                 self.d_error[i] = self.error[i] - self.prev_error[i]
                 self.cum_error[i] = self.cum_error[i] + self.error[i]
                 self.prev_error[i] = self.error[i]
                 #update speed
-                self.command[i] = max([min([self.P*self.error[i] + self.I*self.cum_error[i] + self.D*self.d_error[i], 1]), -1])
-                self.speed[i] = self.command[i] * self.max_speed * self.flip[i]
-                command_msg[i+self.offset] = str(self.speed[i])
+                command[i] = max([min([self.P*self.error[i] + self.I*self.cum_error[i] + self.D*self.d_error[i], 1]), -1])
+                speed[i] = command[i] * self.max_speed * self.flip[i]
+                command_msg[i+self.offset] = str(speed[i])
                 
-        if all(self.done):
+        if all(done):
             self.state += 1
             self.state %= self.num_steps
             for i in range(self.num_motors):
-                self.done[i] = False
+                done[i] = False
                 self.prev_error[i] = 0
                 self.cum_error[i] = 0
         print('State: ',self.state)
         # print(state)
-        print("Position: ",self.pos)
+        print("Position: ",frame.pos)
         print("Target: ",self.states[self.state])
         # print(pos)
         # print(states[state])
-        print("Done: ",self.done)
-        print("Length: ",self.length)
-        print("Capacitance: ",self.cap)
+        print("Done: ",done)
+        print("Length: ",frame.length)
+        print("Capacitance: ",frame.cap)
         print(' '.join(command_msg))
-        self.send_command(' '.join(command_msg), self.addresses[self.which_Arduino],0)
-        #self.send_command(self.stop_msg, self.addresses[self.which_Arduino],0)
         print('+++++')
+        self.done = done
+        return ControlCommand(
+            which_arduino=frame.which_arduino,
+            command=command,
+            speed=speed,
+            done=done,
+            state=self.state,
+            command_msg=' '.join(command_msg),
+        )
 
     def on_press(self, key):
         print('press')
@@ -644,16 +690,19 @@ class TensegrityRobot:
         print("Opened connection press s to stop motor and q to quit")
         while not self.quitting :
             try : 
-                self.read()
+                frame = self.read()
                 # self.sendRosMSG()
-                if(self.keep_going and None not in self.addresses) :
-                    self.sendRosMSG()
-                    self.compute_command()
+                if(frame and self.keep_going and None not in self.addresses) :
+                    command = self.compute_command(frame)
+                    self.sendRosMSG(frame, command)
+                    if command.which_arduino is not None:
+                        self.send_command(command.command_msg, self.addresses[command.which_arduino],0)
                 # else:
                     # set duty cycle as 0 to turn off the motors
                     # for i in qend_command(self.stop_msg, self.addresses[i], 0)
                 if(self.calibration) :
-                    self.sendRosMSG()
+                    if frame:
+                        self.sendRosMSG(frame, None)
                     for i in range(self.num_sensors) :
                         print(f"Capacitance {chr(i + 97)}: {self.cap[i]:.2f} \t Length: {self.length[i]:.2f} \n")
             except Exception as e:
