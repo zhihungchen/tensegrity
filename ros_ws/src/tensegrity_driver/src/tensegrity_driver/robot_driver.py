@@ -10,7 +10,7 @@ from pynput import keyboard
 from scipy.spatial.transform import Rotation as R
 import rospy
 import rospkg
-import socket
+from tensegrity_driver.udp_client import UdpClient
 
 from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 
@@ -26,7 +26,7 @@ class S_Q_Pressed(Exception):
 
 
 class TensegrityRobot:
-    def __init__(self, cfg: RobotConfig):
+    def __init__(self, cfg: RobotConfig, udp_client: UdpClient = None):
         
         # --- from config ---#
         self.cfg = cfg
@@ -74,8 +74,7 @@ class TensegrityRobot:
         # UDP variables
         self.UDP_IP = cfg.UDP_IP  # Listen to all incoming interfaces
         self.UDP_PORT = cfg.UDP_PORT     # Same port used in the Arduino sketch
-        self.sock_receive = None
-        self.sock_send = None
+        self.udp_client = udp_client
         self.addresses = [("172.16.71.78",11311), ("172.16.71.79",11311), ("172.16.71.80",11311)] #[None] * self.num_arduino
         self.offset = None # Nb of leading end ending 0 preventing errors 
 
@@ -180,6 +179,8 @@ class TensegrityRobot:
         #self.done = np.array([False] * self.num_motors)
         self.stop_msg = ' '.join(['0'] * (self.num_motors+2*self.offset))
         #self.init_speed = 70
+        if self.udp_client is None:
+            self.udp_client = UdpClient(self.UDP_IP, self.UDP_PORT)
 
 
         # self.states = np.array([[0, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 1], [0, 0, 0.7, 0, 1.2, 1], [1, 1, 1, 1, 1, 1], [0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 0, 0], [0.7, 0, 0, 1, 0, 1.2], [1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 1, 0], [0, 0.7, 0, 1.2, 1, 0], [1, 1, 1, 1, 1, 1]]) # cw
@@ -261,7 +262,7 @@ class TensegrityRobot:
         return np.cross(k,vrot)
 
     def send_command(self, input_string, addr, delay_time):
-        self.sock_send.sendto(input_string.encode('utf-8'), addr)
+        self.udp_client.send(input_string, addr)
         if delay_time < 0:
             delay_time = 0
         time.sleep(delay_time/1000)
@@ -336,87 +337,82 @@ class TensegrityRobot:
         # imu_pub.publish(imu_msg)
         
     def read(self):
-        data, addr = self.sock_receive.recvfrom(255)  # Receive data (up to 255 bytes)
-        # Decode the data (assuming it's sent as a string)
-        received_data = data.decode('utf-8')
+        received_data, sensor_array, addr = self.udp_client.recv_packet()
         print(received_data)
-        try :
-            # Received data in the form "N_Arduino q0 q1 q2 q3 C0 C1 C2" where N_Arduino indicates the number of the Arduino of the received data
-            sensor_values = received_data.split()
-            # Convert the string values to actual float values and store them in an array
-            sensor_array = [float(value) for value in sensor_values]
-            print(sensor_array)
-            if(addr not in self.addresses):
-                self.addresses[int(sensor_array[0])] = addr
-            #print(sensor_array)
-            """
-            Following code of function read(self) configurated for a 3 bar tensegrity with following sensors
-            Rod 0 (red) has sensors C, E, and I (2, 4, and 8) and motors 2 and 4
-            Rod 1 (green) has sensors B, D, and H (1, 3, and 7) and motors 1 and 3
-            Rod 2 (blue) has sensors A, F, and G (0, 5, and 6) and motors 0 and 5
+        if sensor_array is None:
+            return
+        print(sensor_array)
+        if(addr not in self.addresses):
+            self.addresses[int(sensor_array[0])] = addr
+        #print(sensor_array)
+        """
+        Following code of function read(self) configurated for a 3 bar tensegrity with following sensors
+        Rod 0 (red) has sensors C, E, and I (2, 4, and 8) and motors 2 and 4
+        Rod 1 (green) has sensors B, D, and H (1, 3, and 7) and motors 1 and 3
+        Rod 2 (blue) has sensors A, F, and G (0, 5, and 6) and motors 0 and 5
+        
+        The first IMU is on the blue bar and points from node 5 to node 4
+        The second IMU is on the red bar and points from node 1 to node 0
+        """
+        if(len(sensor_array) == 13) : #Number of data send space
+            self.which_Arduino = int(sensor_array[0])
+            if(sensor_array[1] == 0.2 or sensor_array[2] == 0.2 or sensor_array[3] == 0.2 ) :
+                print('MPR121 or I2C of Arduino '+str(self.which_Arduino)+' wrongly initialized, please reboot Arduino')
+
+            if(int(sensor_array[0]) == 0) :
+                self.cap[4] = sensor_array[1]
+                self.cap[2] = sensor_array[2]
+                self.cap[8] = sensor_array[3]
+                self.encoder_counts[4] = sensor_array[6]
+                self.encoder_counts[2] = sensor_array[5]
+            if(int(sensor_array[0]) == 1) :
+                self.cap[3] = sensor_array[1]
+                self.cap[1] = sensor_array[2] 
+                self.cap[7] = sensor_array[3]
+                self.encoder_counts[3] = sensor_array[6]
+                self.encoder_counts[1] = sensor_array[5]
+            if(int(sensor_array[0]) == 2) :
+                self.cap[5] = sensor_array[1]
+                self.cap[0] = sensor_array[2] 
+                self.cap[6] = sensor_array[3]
+                self.encoder_counts[5] = sensor_array[6]
+                self.encoder_counts[0] = sensor_array[5]
+
+            self.encoder_length = [counts/self.encoder_resolution/self.gear_ratio*np.pi*self.winch_diameter for counts in self.encoder_counts]
             
-            The first IMU is on the blue bar and points from node 5 to node 4
-            The second IMU is on the red bar and points from node 1 to node 0
-            """
-            if(len(sensor_array) == 13) : #Number of data send space
-                self.which_Arduino = int(sensor_array[0])
-                if(sensor_array[1] == 0.2 or sensor_array[2] == 0.2 or sensor_array[3] == 0.2 ) :
-                    print('MPR121 or I2C of Arduino '+str(self.which_Arduino)+' wrongly initialized, please reboot Arduino')
+            #add control code here
+            if not 0.2 in self.cap: #Default capacitance value of MPR121
+                for i in range(len(self.cap)) :
+                    self.length[i] = (self.cap[i] - self.b[i]) / self.m[i] #mm 
+                #check if motor reached the target
+                for i in range(self.num_motors):
+                    if i < 3:
+                        self.pos[i] = (self.length[i] - self.min_length) / self.LEFT_RANGE# calculate the current position of the motor
+                    else:
+                        self.pos[i] = (self.length[i] - self.min_length) / self.RANGE# calculate the current position of the motor   
+            # #read imu data
+            # if(sensor_array[0] == 0) :
+            #     self.imu[1] = self.quat2vec(sensor_array[1:5])
 
-                if(int(sensor_array[0]) == 0) :
-                    self.cap[4] = sensor_array[1]
-                    self.cap[2] = sensor_array[2]
-                    self.cap[8] = sensor_array[3]
-                    self.encoder_counts[4] = sensor_array[6]
-                    self.encoder_counts[2] = sensor_array[5]
-                if(int(sensor_array[0]) == 1) :
-                    self.cap[3] = sensor_array[1]
-                    self.cap[1] = sensor_array[2] 
-                    self.cap[7] = sensor_array[3]
-                    self.encoder_counts[3] = sensor_array[6]
-                    self.encoder_counts[1] = sensor_array[5]
-                if(int(sensor_array[0]) == 2) :
-                    self.cap[5] = sensor_array[1]
-                    self.cap[0] = sensor_array[2] 
-                    self.cap[6] = sensor_array[3]
-                    self.encoder_counts[5] = sensor_array[6]
-                    self.encoder_counts[0] = sensor_array[5]
+            # if(sensor_array[0] == 2) :
+            #     self.imu[0] = self.quat2vec(sensor_array[1:5])
 
-                self.encoder_length = [counts/self.encoder_resolution/self.gear_ratio*np.pi*self.winch_diameter for counts in self.encoder_counts]
-                
-                #add control code here
-                if not 0.2 in self.cap: #Default capacitance value of MPR121
-                    for i in range(len(self.cap)) :
-                        self.length[i] = (self.cap[i] - self.b[i]) / self.m[i] #mm 
-                    #check if motor reached the target
-                    for i in range(self.num_motors):
-                        if i < 3:
-                            self.pos[i] = (self.length[i] - self.min_length) / self.LEFT_RANGE# calculate the current position of the motor
-                        else:
-                            self.pos[i] = (self.length[i] - self.min_length) / self.RANGE# calculate the current position of the motor   
-                # #read imu data
-                # if(sensor_array[0] == 0) :
-                #     self.imu[1] = self.quat2vec(sensor_array[1:5])
+            #if(sensor_array[0] == 3) : If 3 IMU's used
+            #   self.imu[3] = self.quat2vec(sensor_array[1:5])
+            self.accelerometer[self.which_Arduino][0] = sensor_array[7] # ax
+            self.accelerometer[self.which_Arduino][1] = sensor_array[8] # ay
+            self.accelerometer[self.which_Arduino][2] = sensor_array[9] # az
+            self.gyroscope[self.which_Arduino][0] = sensor_array[10]    # gx
+            self.gyroscope[self.which_Arduino][1] = sensor_array[11]    # gy
+            self.gyroscope[self.which_Arduino][2] = sensor_array[12]    # gz
 
-                # if(sensor_array[0] == 2) :
-                #     self.imu[0] = self.quat2vec(sensor_array[1:5])
-
-                #if(sensor_array[0] == 3) : If 3 IMU's used
-                #   self.imu[3] = self.quat2vec(sensor_array[1:5])
-                self.accelerometer[self.which_Arduino][0] = sensor_array[7] # ax
-                self.accelerometer[self.which_Arduino][1] = sensor_array[8] # ay
-                self.accelerometer[self.which_Arduino][2] = sensor_array[9] # az
-                self.gyroscope[self.which_Arduino][0] = sensor_array[10]    # gx
-                self.gyroscope[self.which_Arduino][1] = sensor_array[11]    # gy
-                self.gyroscope[self.which_Arduino][2] = sensor_array[12]    # gz
-
-            else:
-                if (None in self.addresses) :
-                    for i in range(len(self.addresses)):
-                        if(self.addresses[i] == None) : 
-                            print('Arduino '+str(i)+' wrongly initialized, please reboot Arduino')
-                        else:     
-                            self.send_command(self.stop_msg, self.addresses[i],0)
+        else:
+            if (None in self.addresses) :
+                for i in range(len(self.addresses)):
+                    if(self.addresses[i] == None) : 
+                        print('Arduino '+str(i)+' wrongly initialized, please reboot Arduino')
+                    else:     
+                        self.send_command(self.stop_msg, self.addresses[i],0)
 
                 else :
                     print('+')
@@ -632,13 +628,6 @@ class TensegrityRobot:
         print("Initializing")
         self.initialize()
         print("Running UDP connection with Arduino's: ")
-
-        # Create a UDP socket for receiving data
-        self.sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-        # Bind the socket to the address and port
-        self.sock_receive.bind((self.UDP_IP, self.UDP_PORT))
         
         # finishing setup.
         print("Opened connection press s to stop motor and q to quit")
