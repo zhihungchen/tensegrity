@@ -39,7 +39,7 @@ class RobotConfig:
     recv_buf_size: int = 255    # max bytes per packet
 
     # ---- ROS ----
-    ros_node_name: str = "tensegrity"
+    ros_node_name: str = "tensegrity_driver"
     ros_control_topic: str = "control_msg"
     ros_queue_size: int = 10
 
