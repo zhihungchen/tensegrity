@@ -6,11 +6,9 @@ from math import cos, sin
 import json
 import xlrd
 import numpy as np
-from pynput import keyboard
 from scipy.spatial.transform import Rotation as R
-#import rospy
-#import rospkg
 from tensegrity_core.udp_client import UdpClient
+from tensegrity_core.command_bus import CommandBus
 
 #from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 
@@ -20,11 +18,8 @@ from tensegrity_core.robot_config import RobotConfig  # <--- cfg
 class FileError(Exception):
     pass
 
-
-
 class S_Q_Pressed(Exception):
     pass
-
 
 class TensegrityCore:
     def __init__(self, cfg: RobotConfig, udp_client: UdpClient = None):
@@ -90,7 +85,7 @@ class TensegrityCore:
         self.state = None
         self.states = None
         self.control_pub = None
-        self.my_listener = None
+        #self.my_listener = None
         self.keep_going = True
         self.quitting = False
         self.calibration = False
@@ -100,17 +95,14 @@ class TensegrityCore:
         self.stop_msg = None
         self.which_Arduino = None
         
-
-        # keyboard variables
-        self.zero_pressed = False
-        self.one_pressed = False
-        self.two_pressed = False
-        self.three_pressed = False
-        self.four_pressed = False
-        self.five_pressed = False
-
         # keyboard variables for testing
         self.armed = False      #default: motors OFF
+
+        # --- control / input --- #
+        self.bus = CommandBus()
+        self.kbd = None
+        self._last_sent = None  # optional: avoid spamming identical command
+
     
     #----------------------------------------------------------------------#
     def load_states_from_json(self, path):
@@ -127,11 +119,67 @@ class TensegrityCore:
             self.states = np.ones((1, self.num_motors))  # fallback
             self.num_steps = 1
 
-    def initialize(self, calibration_file: str = None, states_path: str = None):
+    def initialize(
+            self,
+            *, 
+            mode: str = "basic",
+            calibration_file: str = None,
+            states_path: str = None
+        ):
 
-        self.my_listener = keyboard.Listener(on_press=self.on_press, on_release=self.on_release)
-        self.my_listener.daemon = True
-        self.my_listener.start()
+        # ---- control input selection ----
+        self.kbd = None
+
+        # containers
+        self.inputs = []
+
+        # 1) load states
+        if states_path is not None:
+            self.load_states_from_json(states_path)
+
+        # 2) load calibration (calibration mode 可能需要)
+        if calibration_file is not None:
+            self.m, self.b = self.read_calibration_file(calibration_file)
+
+        # 3) select input by mode
+        if mode == "basic":
+            from tensegrity_core.inputs.keyboard_pynput_basic import PynputBasicKeyboard
+            kbd = PynputBasicKeyboard(self.bus)
+            kbd.start()
+            self.inputs.append(kbd)
+            print("[INFO] Mode=basic (pynput / X11)")
+
+        elif mode == "ssh":
+            from tensegrity_core.inputs.keyboard_stdin_basic import StdinBasicKeyboard
+            kbd = StdinBasicKeyboard(self.bus)
+            kbd.start()
+            self.inputs.append(kbd)
+            print("[INFO] Mode=ssh (stdin)")
+
+        elif mode == "calibration":
+            # try pynput first, fallback stdin
+            kbd = None
+            try:
+                from tensegrity_core.inputs.keyboard_pynput_calibration import PynputCalibrationKeyboard
+                kbd = PynputCalibrationKeyboard(self.bus)
+                kbd.start()
+                print("[INFO] Mode=calibration (pynput)")
+            except Exception as e:
+                print(f"[WARN] pynput calibration unavailable: {e}")
+
+            if kbd is None:
+                from tensegrity_core.inputs.keyboard_stdin_basic import StdinBasicKeyboard
+                kbd = StdinBasicKeyboard(self.bus)
+                kbd.start()
+                print("[INFO] Mode=calibration (stdin)")
+
+            self.inputs.append(kbd)
+
+        else:
+            raise ValueError(f"Unknown mode: {mode}")
+
+
+    # ---- rest of init ----
         
         # rospy.init_node('tensegrity_driver', anonymous=True)
         # self.control_pub = rospy.Publisher('control_msg', TensegrityStamped, queue_size=10) ## correct ??
@@ -139,9 +187,6 @@ class TensegrityCore:
         # package_path = rospkg.RosPack().get_path('tensegrity_driver')
         #self.m = np.array([0.04437, 0.06207, 0.02356, 0.04440, 0.04681, 0.05381, 0.02841, 0.03599, 0.03844])
         #self.b = np.array([15.763, 13.524, 15.708, 10.084, 15.628, 15.208, 16.356, 12.575, 13.506])
-        
-        self.m, self.b = self.read_calibration_file(calibration_file)
-        self.load_states_from_json(states_path)
         
         """
         # # BEST GAIT
@@ -270,8 +315,55 @@ class TensegrityCore:
         if delay_time < 0:
             delay_time = 0
         time.sleep(delay_time/1000)
-        
 
+    def stop_all(self):
+        for addr in self.addresses:
+            if addr is not None:
+                self.send_command(self.stop_msg, addr, 0)
+
+    def _build_jog_msg(self, motor_idx: int, speed: int) -> str:
+        msg = self.stop_msg.split()
+        msg[self.offset + motor_idx] = str(speed)
+        return " ".join(msg)
+
+    def apply_manual_jog(self, intent):
+        """
+        Old behavior port:
+        - selected_motor chooses motor
+        - hold f/b => send speed command continuously (or at least once per loop)
+        - release => send stop_msg
+        """
+        motor = intent.selected_motor
+        if motor is None:
+            return
+
+        # Safety: bounds
+        if not (0 <= motor < self.num_motors):
+            return
+
+        # If not active, ensure stop (like old on_release)
+        if not intent.jog_active or intent.jog_dir == 0:
+            if self._last_sent != self.stop_msg:
+                self.stop_all()
+                self._last_sent = self.stop_msg
+            return
+
+        # compute speed like old (respect flip)
+        speed = int(self.init_speed) * int(intent.jog_dir) * int(self.flip[motor])
+        out = self._build_jog_msg(motor, speed)
+
+        # optional anti-spam: only send when changed
+        if out == self._last_sent:
+            return
+        self._last_sent = out
+
+        # old code sent to all arduinos
+        for addr in self.addresses:
+            if addr is not None:
+                self.send_command(out, addr, 0)
+
+
+    
     def read(self):
         received_data, sensor_array, addr = self.udp_client.recv_packet()
         print("[RX addr:", addr)
@@ -359,8 +451,8 @@ class TensegrityCore:
                     print('+')
                     for i in range(len(self.addresses)) :
                         self.send_command(self.stop_msg, self.addresses[i],0)
-            
-
+    
+    
     def compute_command(self) :
         command_msg = self.stop_msg.split()
         for i in range(self.num_motors):
@@ -405,176 +497,37 @@ class TensegrityCore:
         #self.send_command(self.stop_msg, self.addresses[self.which_Arduino],0)
         print('+++++')
 
-    def on_press(self, key):
-        print('press')
-        # try : 
-        if key == keyboard.KeyCode.from_char('q'):
-            self.quitting = True
-            self.keep_going = False
-            print('I hear you Q')
-            # raise S_Q_Pressed()
-            print("\nStopping motors")
-            self.keep_going = False
-            # set duty cycle as 0 to turn off the motors
-            for i in range(len(self.addresses)):
-                self.send_command(self.stop_msg, self.addresses[i], 0)
-        elif key == keyboard.KeyCode.from_char('s'):
-            self.quitting = True
-            self.keep_going = False
-            # raise S_Q_Pressed()
-            print('I hear you S')
-            print("\nStopping motors")
-            self.keep_going = False
-            # set duty cycle as 0 to turn off the motors
-            for i in range(len(self.addresses)):
-                self.send_command(self.stop_msg, self.addresses[i], 0)
-        elif key == keyboard.KeyCode.from_char('r'):
-            self.states = np.array([[1.0]*self.num_motors]*self.num_steps)
-            self.done = np.array([False] * self.num_motors)
-            self.tol = 0.2
-            self.P = 5.0
-            self.max_speed = 90
-
-        elif key == keyboard.KeyCode.from_char('n'):
-            self.states = np.array([[1.0]*self.num_motors]*self.num_steps)
-            self.done = np.array([False] * self.num_motors)
-            self.tol = 0.03
-            self.P = 5.0
-            # max_speed = 80
-            self.RANGE = 90
-            self.LEFT_RANGE = self.RANGE
-        elif key == keyboard.KeyCode.from_char('g'):
-            self.armed = not self.armed
-            print('Armed: ', self.armed)
-            
-            # set duty cycle as 0 to turn off the motors   
-        # elif key == keyboard.KeyCode.from_char('f'):
-        #     self.keep_going = False
-        #     msg = self.stop_msg.split()
-        #     if self.zero_pressed:
-        #         msg[0+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.one_pressed:
-        #         msg[1+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.two_pressed:
-        #         msg[2+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.three_pressed:
-        #         msg[3+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.four_pressed:
-        #         msg[4+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.five_pressed:
-        #         msg[5+self.offset] = str(self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        # elif key == keyboard.KeyCode.from_char('b'):
-        #     self.keep_going = False
-        #     msg = self.stop_msg.split()
-        #     if self.zero_pressed:
-        #         msg[0+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.one_pressed:
-        #         msg[1+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.two_pressed:
-        #         msg[2+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.three_pressed:
-        #         msg[3+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.four_pressed:
-        #         msg[4+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        #     elif self.five_pressed:
-        #         msg[5+self.offset] = str(-self.init_speed)
-        #         for i in range(len(self.addresses)) :
-        #             self.send_command(' '.join(msg), self.addresses[i],0)
-        # elif key == keyboard.KeyCode.from_char('0'):
-        #     self.zero_pressed = True
-        # elif key == keyboard.KeyCode.from_char('1'):
-        #     self.one_pressed = True
-        # elif key == keyboard.KeyCode.from_char('2'):
-        #     self.two_pressed = True
-        # elif key == keyboard.KeyCode.from_char('3'):
-        #     self.three_pressed = True
-        # elif key == keyboard.KeyCode.from_char('4'):
-        #     self.four_pressed = True
-        # elif key == keyboard.KeyCode.from_char('5'):
-        #     self.five_pressed = True
-        # elif key == keyboard.KeyCode.from_char('c'):
-        #     self.keep_going = False
-        #     self.calibration = True
-
-        # except AttributeError:
-        #     print('On-press error -- quitting')
-        #     self.quitting = True
-        #     self.keep_going = False
-        #     # set duty cycle as 0 to turn off the motors
-        #     for i in range(len(self.addresses)):
-        #         self.send_command(self.stop_msg, self.addresses[i], 0)
-
-
-        # except S_Q_Pressed :
-        #     print("\nStopping motors")
-        #     self.keep_going = False
-        #     # set duty cycle as 0 to turn off the motors
-        #     for i in range(len(self.addresses)):
-        #         self.send_command(self.stop_msg, self.addresses[i], 0)
-                
-    def on_release(self,key):
-        print('release')
-        if  key == keyboard.KeyCode.from_char('0'):
-            self.zero_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('1'):
-            self.one_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('2'):
-            self.two_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('3'):
-            self.three_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('4'):
-            self.four_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('5'):
-            self.five_pressed = False
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('f'):
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-        elif key == keyboard.KeyCode.from_char('b'):
-            for i in range(len(self.addresses)) :
-                    self.send_command(self.stop_msg, self.addresses[i],0)
-            
+    
     def run(self, calibration_file: str, states_path: str):
         print("Initializing")
-        self.initialize(calibration_file, states_path)
+        self.initialize(mode = "basic", calibration_file = calibration_file, states_path = states_path)
         # finishing setup.
         print("Opened connection press s to stop motor and q to quit")
         while not self.quitting :
-            try : 
+            try :
+                intent = self.bus.snapshot()
+
+                # edge flags -> apply to core state
+                if intent.stop:
+                    print("[INFO] STOP requested -> stopping motors")
+                    self.keep_going = False
+                    self.stop_all()
+
+                if intent.armed_toggle:
+                    self.armed = not self.armed
+                    print("[INFO] Armed:", self.armed)
+
+                if intent.quit:
+                    print("[INFO] QUIT requested -> stopping motors and exiting")
+                    self.stop_all()
+                    self.quitting = True
+
+                self.bus.clear_edge_flags()
+ 
                 self.read()
+                # manual jog for calibration
+                self.apply_manual_jog(intent)
+
                 # self.sendRosMSG()
                 if(self.keep_going and None not in self.addresses) :
                     if self.armed:
@@ -604,7 +557,7 @@ if __name__ == "__main__":
 
     # robot_core.py: .../tensegrity_core/src/tensegrity_core/robot_core.py
     THIS_FILE = Path(__file__).resolve()
-    PKG_ROOT = THIS_FILE.parents[2]  # .../tensegrity_core (含 calibration/ states/ src/)
+    PKG_ROOT = THIS_FILE.parents[2]  # .../tensegrity_core (calibration/ states/ src/)
     DEFAULT_CALIB  = PKG_ROOT / "calibration" / "calibration_charles.xls"
     DEFAULT_STATES = PKG_ROOT / "states" / "quasi_static.json"
 
