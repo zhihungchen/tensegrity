@@ -12,8 +12,7 @@ from scipy.spatial.transform import Rotation as R
 import rospy
 import rospkg
 import socket
-#from tensegrity.msg import Motor, Info, MotorsStamped, Sensor, SensorsStamped, Imu, ImuStamped
-from tensegrity_driver.robot_driver import Motor, Info, Sensor, Imu, TensegrityStamped
+from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 #from geometry_msgs.msg import QuaternionStamped
 
 

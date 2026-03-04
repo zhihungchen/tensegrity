@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- A* configuration: driver (UDP + core) + A* planner node.
+       Replaces legacy run_tensegrity_Astar.py; driver handles full Action (endcaps, transform_gait). -->
+  <node pkg="tensegrity_driver" type="tensegrity_driver_node.py" name="tensegrity_driver" output="screen"/>
+  <node pkg="tensegrity_planning" type="astar_planner_node.py" name="astar_planner" output="screen"/>
+</launch>

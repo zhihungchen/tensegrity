@@ -15,6 +15,9 @@ class RobotConfig:
     # ---- Ranges & speeds ----
     RANGE: float = 100.0
     LEFT_RANGE: float = 100.0
+    # A* / MPC: per-motor-group ranges (motors 0,1,2 use RANGE135; 3,4,5 use RANGE024)
+    RANGE024: float = 100.0
+    RANGE135: float = 100.0
     max_speed: float = 70.0
     init_speed: float = 70.0
 

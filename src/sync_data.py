@@ -15,7 +15,6 @@ import rospkg
 import message_filters
 from sensor_msgs.msg import Image
 # from geometry_msgs.msg import QuaternionStamped
-# from tensegrity.msg import MotorsStamped, SensorsStamped, ImuStamped, NodesStamped
 from tensegrity.msg import TensegrityStamped, NodesStamped
 # from phasespace.msg import Markers
 

@@ -726,7 +726,6 @@ class TensegrityRobot:
         # get RGBD data
         rgb_msg = rospy.wait_for_message('/rgb_images',Image,None)
         depth_msg = rospy.wait_for_message('/depth_images',Image,None)
-
         # send trajectory or other points to be superimposed
         trajectory_x = Float64MultiArray()
         trajectory_y = Float64MultiArray()

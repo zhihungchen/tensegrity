@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tensegrity_core</name>
+  <version>0.0.0</version>
+  <description>ROS-free core library: hardware abstraction, state, low-level control (no ROS dependency).</description>
+
+  <maintainer email="pracsys@todo.todo">pracsys</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

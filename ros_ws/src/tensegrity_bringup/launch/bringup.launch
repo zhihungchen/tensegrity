@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Tensegrity driver: connects to robot over UDP, publishes state, subscribes to actions -->
+  <node pkg="tensegrity_driver" type="tensegrity_driver_node.py" name="tensegrity_driver" output="screen"/>
+</launch>

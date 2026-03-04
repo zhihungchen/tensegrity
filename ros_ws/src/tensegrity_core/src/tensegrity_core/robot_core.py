@@ -12,7 +12,8 @@ from tensegrity_core.command_bus import CommandBus
 
 #from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 
-from tensegrity_core.robot_config import RobotConfig  # <--- cfg
+from tensegrity_core.robot_config import RobotConfig
+from tensegrity_core.controllers.gait_pid import GaitPidController
 
 
 class FileError(Exception):
@@ -54,6 +55,8 @@ class TensegrityCore:
 
         self.RANGE = cfg.RANGE
         self.LEFT_RANGE = cfg.LEFT_RANGE
+        self.RANGE024 = getattr(cfg, "RANGE024", cfg.RANGE)
+        self.RANGE135 = getattr(cfg, "RANGE135", cfg.LEFT_RANGE)
         self.max_speed = cfg.max_speed
         self.init_speed = cfg.init_speed
 
@@ -225,7 +228,7 @@ class TensegrityCore:
 
         #self.num_steps = len(self.states)
         #self.state = 0
-        self.offset = 3
+        self.offset = self.cfg.offset
         #self.done = np.array([False] * self.num_motors)
         self.stop_msg = ' '.join(['0'] * (self.num_motors+2*self.offset))
         #self.init_speed = 70
@@ -256,7 +259,16 @@ class TensegrityCore:
         #                    [1.0, 0.1, 1.0, 1.0, 0.1, 1.0],[0.1, 0.1, 1.0, 0.1, 1.0, 1.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         #                    [1.0, 1.0, 0.1, 1.0, 1.0, 0.1],[1.0, 0.1, 0.1, 1.0, 0.1, 1.0],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         #                    [0.1, 1.0, 1.0, 0.1, 1.0, 1.0],[0.1, 1.0, 0.1, 1.0, 1.0, 0.1],[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]]) # quasi-static rolling with rest states
+        
+        # ---- controller ----
 
+        if self.states is not None:
+            self.controller = GaitPidController(
+                cfg=self.cfg,
+                states=self.states,
+                stop_msg=self.stop_msg,
+                offset=self.offset
+            )
 
 
 
@@ -320,6 +332,33 @@ class TensegrityCore:
         for addr in self.addresses:
             if addr is not None:
                 self.send_command(self.stop_msg, addr, 0)
+
+    def set_gait_state(self, index: int) -> None:
+        """Set current gait step (for external/planning control). No ROS dependency."""
+        if self.controller is not None:
+            self.controller.set_gait_state(index)
+        self.state = int(index) % self.num_steps if self.num_steps else 0
+
+    def set_states(self, states) -> None:
+        """Replace gait table and reset. Recreates internal controller."""
+        self.states = np.array(states, dtype=float)
+        self.num_steps = len(self.states)
+        self.state = 0
+        self.done = [False] * self.num_motors
+        if self.controller is not None:
+            self.controller.set_states(self.states)
+        else:
+            self.controller = GaitPidController(
+                cfg=self.cfg,
+                states=self.states,
+                stop_msg=self.stop_msg,
+                offset=self.offset
+            )
+
+    def set_ranges(self, range024: float, range135: float) -> None:
+        """Set cable length ranges for A* / MPC (motors 3,4,5 use range024; 0,1,2 use range135)."""
+        self.RANGE024 = float(range024)
+        self.RANGE135 = float(range135)
 
     def _build_jog_msg(self, motor_idx: int, speed: int) -> str:
         msg = self.stop_msg.split()
@@ -420,9 +459,9 @@ class TensegrityCore:
                 #check if motor reached the target
                 for i in range(self.num_motors):
                     if i < 3:
-                        self.pos[i] = (self.length[i] - self.min_length) / self.LEFT_RANGE# calculate the current position of the motor
+                        self.pos[i] = (self.length[i] - self.min_length) / self.RANGE135  # motors 0,1,2
                     else:
-                        self.pos[i] = (self.length[i] - self.min_length) / self.RANGE# calculate the current position of the motor   
+                        self.pos[i] = (self.length[i] - self.min_length) / self.RANGE024  # motors 3,4,5   
             # #read imu data
             # if(sensor_array[0] == 0) :
             #     self.imu[1] = self.quat2vec(sensor_array[1:5])
@@ -453,54 +492,56 @@ class TensegrityCore:
                         self.send_command(self.stop_msg, self.addresses[i],0)
     
     
-    def compute_command(self) :
-        command_msg = self.stop_msg.split()
-        for i in range(self.num_motors):
-            # two tolerances for shorter and longer commands
-            if self.states[self.state, i] < 0.5:
-                tolerance = self.low_tol
-            else:
-                tolerance = self.tol
+    # def compute_command(self) :
+    #     command_msg = self.stop_msg.split()
+    #     for i in range(self.num_motors):
+    #         # two tolerances for shorter and longer commands
+    #         if self.states[self.state, i] < 0.5:
+    #             tolerance = self.low_tol
+    #         else:
+    #             tolerance = self.tol
 
-            #check if motor reached the target
-            if self.pos[i] + tolerance > self.states[self.state, i] and self.pos[i] - tolerance < self.states[self.state, i]:
-                self.done[i] = True
-                self.command[i] = 0
-            if not self.done[i]:
-                self.error[i] = self.pos[i] - self.states[self.state, i]
-                self.d_error[i] = self.error[i] - self.prev_error[i]
-                self.cum_error[i] = self.cum_error[i] + self.error[i]
-                self.prev_error[i] = self.error[i]
-                #update speed
-                self.command[i] = max([min([self.P*self.error[i] + self.I*self.cum_error[i] + self.D*self.d_error[i], 1]), -1])
-                self.speed[i] = self.command[i] * self.max_speed * self.flip[i]
-                command_msg[i+self.offset] = str(self.speed[i])
+    #         #check if motor reached the target
+    #         if self.pos[i] + tolerance > self.states[self.state, i] and self.pos[i] - tolerance < self.states[self.state, i]:
+    #             self.done[i] = True
+    #             self.command[i] = 0
+    #         if not self.done[i]:
+    #             self.error[i] = self.pos[i] - self.states[self.state, i]
+    #             self.d_error[i] = self.error[i] - self.prev_error[i]
+    #             self.cum_error[i] = self.cum_error[i] + self.error[i]
+    #             self.prev_error[i] = self.error[i]
+    #             #update speed
+    #             self.command[i] = max([min([self.P*self.error[i] + self.I*self.cum_error[i] + self.D*self.d_error[i], 1]), -1])
+    #             self.speed[i] = self.command[i] * self.max_speed * self.flip[i]
+    #             command_msg[i+self.offset] = str(self.speed[i])
                 
-        if all(self.done):
-            self.state += 1
-            self.state %= self.num_steps
-            for i in range(self.num_motors):
-                self.done[i] = False
-                self.prev_error[i] = 0
-                self.cum_error[i] = 0
-        print('State: ',self.state)
-        # print(state)
-        print("Position: ",self.pos)
-        print("Target: ",self.states[self.state])
-        # print(pos)
-        # print(states[state])
-        print("Done: ",self.done)
-        print("Length: ",self.length)
-        print("Capacitance: ",self.cap)
-        print(' '.join(command_msg))
-        self.send_command(' '.join(command_msg), self.addresses[self.which_Arduino],0)
-        #self.send_command(self.stop_msg, self.addresses[self.which_Arduino],0)
-        print('+++++')
+    #     if all(self.done):
+    #         self.state += 1
+    #         self.state %= self.num_steps
+    #         for i in range(self.num_motors):
+    #             self.done[i] = False
+    #             self.prev_error[i] = 0
+    #             self.cum_error[i] = 0
+    #     print('State: ',self.state)
+    #     # print(state)
+    #     print("Position: ",self.pos)
+    #     print("Target: ",self.states[self.state])
+    #     # print(pos)
+    #     # print(states[state])
+    #     print("Done: ",self.done)
+    #     print("Length: ",self.length)
+    #     print("Capacitance: ",self.cap)
+    #     print(' '.join(command_msg))
+    #     self.send_command(' '.join(command_msg), self.addresses[self.which_Arduino],0)
+    #     #self.send_command(self.stop_msg, self.addresses[self.which_Arduino],0)
+    #     print('+++++')
+
+    #     return command_msg
 
     
     def run(self, calibration_file: str, states_path: str):
         print("Initializing")
-        self.initialize(mode = "basic", calibration_file = calibration_file, states_path = states_path)
+        self.initialize(mode = "ssh", calibration_file = calibration_file, states_path = states_path)
         # finishing setup.
         print("Opened connection press s to stop motor and q to quit")
         while not self.quitting :
@@ -529,9 +570,11 @@ class TensegrityCore:
                 self.apply_manual_jog(intent)
 
                 # self.sendRosMSG()
-                if(self.keep_going and None not in self.addresses) :
-                    if self.armed:
-                        self.compute_command()
+                if self.keep_going and None not in self.addresses and self.armed:
+                    msg, dbg = self.controller.step(self.pos)     # returns list[str]
+                    self.send_command(' '.join(msg), self.addresses[self.which_Arduino], 0)
+                    print('debug msg', dbg)
+
                 # else:
                     # set duty cycle as 0 to turn off the motors
                     # for i in qend_command(self.stop_msg, self.addresses[i], 0)

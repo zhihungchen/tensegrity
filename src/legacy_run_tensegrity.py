@@ -16,7 +16,6 @@ from scipy.spatial.transform import Rotation as R
 
 # ROS messages
 import rospy
-# from tensegrity.msg import Motor, Info, MotorsStamped, Sensor, SensorsStamped, Imu, ImuStamped
 from tensegrity.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 import rospkg
 
