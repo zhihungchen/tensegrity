@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>tensegrity_planning</name>
+  <version>0.0.0</version>
+  <description>ROS2 planning nodes: A* and RL planners (stub; full port when perception is ROS2).</description>
+  <maintainer email="pracsys@todo.todo">pracsys</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>tensegrity_interfaces</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
