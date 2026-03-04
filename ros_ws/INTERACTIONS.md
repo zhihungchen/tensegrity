@@ -1,8 +1,4 @@
-# ROS1 Package Interactions Diagram
-
-This diagram shows how ROS1 packages and nodes interact via topics and services in **ros_ws** (current project status).
-
-**To view the diagram:** Open `INTERACTIONS_DIAGRAM.html` in a web browser (double-click the file or drag it into Chrome/Firefox). The chart will render there.
+# ROS1 Package Interactions 
 
 ## Current ros_ws packages
 
@@ -16,67 +12,6 @@ This diagram shows how ROS1 packages and nodes interact via topics and services 
 | **tensegrity_controller** | `ros_ws/src/tensegrity_controller/` | Present; no active node. |
 | **tensegrity_perception** | *not in ros_ws* | External/optional; provides services used by planning when running. |
 
-## Mermaid diagram
-
-```mermaid
-flowchart TB
-    subgraph packages["ROS1 Packages (ros_ws)"]
-        subgraph lib["Libraries / Interfaces"]
-            TI[tensegrity_interfaces<br/>Action, State, TensegrityStamped, Motor, Sensor, Imu, Info, Node, NodesStamped, MotorsStamped, SensorsStamped, ImuStamped, Trajectory, StampedIndex]
-            TC[tensegrity_core<br/>RobotConfig, TensegrityCore, UdpClient, CommandBus, GaitPidController, inputs/keyboard, robot_calibration, sensor_calibration]
-        end
-
-        subgraph nodes["Nodes (runtime)"]
-            DRV[tensegrity_driver<br/>tensegrity_driver_node.py]
-            ASTAR[tensegrity_planning<br/>astar_planner_node.py]
-            RL[tensegrity_planning<br/>rl_planner_node.py]
-            PERC[tensegrity_perception<br/>external, optional]
-        end
-
-        BRINGUP[tensegrity_bringup<br/>bringup.launch, bringup_astar.launch]
-        CTRL[tensegrity_controller<br/>no active node]
-    end
-
-    ROBOT[Physical Robot<br/>Arduino / Motors]
-
-    %% Driver: pub/sub
-    DRV -->|publishes| control_msg["control_msg<br/>(TensegrityStamped)"]
-    DRV -->|publishes| state_msg["/state_msg<br/>(State)"]
-    action_msg["/action_msg<br/>(Action)"] -->|subscribes| DRV
-
-    %% Planning: pub/sub
-    state_msg -->|subscribes| ASTAR
-    state_msg -->|subscribes| RL
-    ASTAR -->|publishes| action_msg
-    RL -->|publishes| action_msg
-
-    %% Perception: services (called by planning; perception not in ros_ws)
-    ASTAR -->|get_pose, get_bar_height srv| PERC
-    RL -->|get_pose srv| PERC
-
-    %% Perception: topics (when perception stack is run)
-    PERC -->|subscribes| control_msg
-    rgb["/rgb_images"] -->|subscribes| PERC
-    depth["/depth_images"] -->|subscribes| PERC
-    PERC -->|publishes| traj["/trajectory_images"]
-
-    %% Driver <-> Robot
-    DRV -->|UDP| ROBOT
-
-    %% Package dependencies (build/use)
-    DRV -.->|uses| TC
-    DRV -.->|uses| TI
-    DRV -.->|astar_action_handler| ASTAR
-    ASTAR -.->|uses| TI
-    RL -.->|uses| TI
-    BRINGUP -.->|launches| DRV
-    BRINGUP -.->|launches| ASTAR
-```
-
-## Legend
-
-- **Solid arrows**: topic publish/subscribe or service calls
-- **Dotted arrows**: package dependency (build/use, launch, or optional use of code from another package)
 
 ## Summary
 
