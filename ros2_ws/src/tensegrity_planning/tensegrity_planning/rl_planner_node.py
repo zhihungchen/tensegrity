@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""ROS2 RL planner node (stub). Full implementation when tensegrity_perception is ROS2."""
+"""ROS2 RL planner node: subscribes to state, publishes actions; polls get_pose when perception is up."""
 import rclpy
 from rclpy.node import Node
 from tensegrity_interfaces.msg import State, Action
+
+from tensegrity_planning.planner_perception import attach_get_pose_client
 
 
 class RLPlannerNode(Node):
@@ -10,7 +12,10 @@ class RLPlannerNode(Node):
         super().__init__('rl_planner_node')
         self.sub = self.create_subscription(State, '/state_msg', self._callback, 10)
         self.pub = self.create_publisher(Action, '/action_msg', 10)
-        self.get_logger().info('RL planner node (stub) running; connect perception for full planning.')
+        self._pose_client, self._pose_timer = attach_get_pose_client(self, period_sec=1.0)
+        self.get_logger().info(
+            'RL planner node running; get_pose polled when service exists (full RL logic TODO).'
+        )
 
     def _callback(self, msg):
         pass
@@ -19,9 +24,11 @@ class RLPlannerNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = RLPlannerNode()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@
 
   <depend>rclpy</depend>
   <depend>tensegrity_interfaces</depend>
+  <depend>tensegrity_perception</depend>
 
   <export>
     <build_type>ament_python</build_type>

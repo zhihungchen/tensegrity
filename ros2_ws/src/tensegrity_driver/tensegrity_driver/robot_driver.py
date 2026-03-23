@@ -20,6 +20,7 @@ from tensegrity_interfaces.msg import (
     TensegrityStamped,
     State,
     Action,
+    Trajectory,
 )
 import numpy as np
 
@@ -157,6 +158,10 @@ class TensegrityDriverNode(Node):
             imu.gy = c.gyroscope[rod][1]
             imu.gz = c.gyroscope[rod][2]
             msg.imus.append(imu)
+        # Perception overlays (COM / planned path) expect `trajectory` to exist; populate when MPC data exists.
+        traj = Trajectory()
+        traj.trajectory_segment = 0
+        msg.trajectory = traj
         return msg
 
     def _build_state_msg(self, prev_action='', reverse_the_gait=False, bar_height_changed=False):
