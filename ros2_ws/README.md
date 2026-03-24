@@ -20,10 +20,12 @@ After sourcing (e.g. `source install/setup.bash` from this directory or `source 
 | What | Command |
 |------|---------|
 | **Driver** (robot over UDP) | `ros2 launch tensegrity_bringup bringup.py` |
+| **Driver + perception** (+ optional stub planners) | `ros2 launch tensegrity_bringup pipeline.launch.py` |
 | Driver (single node) | `ros2 run tensegrity_driver tensegrity_driver_node` |
+| Perception only | `ros2 launch tensegrity_perception tracking.launch.py` |
 | A* planner | `ros2 run tensegrity_planning astar_planner_node` |
 | RL planner | `ros2 run tensegrity_planning rl_planner_node` |
 
-The A* and RL planner nodes are stubs until perception is available; they run and connect to `/state_msg` and `/action_msg` but do not yet perform real planning.
+Put `tensegrity_perception` in `src/` next to the other packages (see `scripts/link_tensegrity_perception.sh` for a sibling checkout). The A* and RL nodes are still planning stubs but poll `get_pose` when the tracker is running.
 
-Perception (`tensegrity_perception`) must be migrated to ROS2 separately. See [MIGRATION.md](MIGRATION.md) for migration status and [tensegrity_interfaces/PERCEPTION_INTERFACE.md](src/tensegrity_interfaces/PERCEPTION_INTERFACE.md) for the perception contract.
+See [MIGRATION.md](MIGRATION.md) and [tensegrity_interfaces/PERCEPTION_INTERFACE.md](src/tensegrity_interfaces/PERCEPTION_INTERFACE.md).

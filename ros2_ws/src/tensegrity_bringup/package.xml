@@ -12,6 +12,8 @@
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>tensegrity_driver</exec_depend>
   <exec_depend>tensegrity_planning</exec_depend>
+  <!-- pipeline.launch.py also needs tensegrity_perception installed in the same workspace (not a build dep so driver-only builds still work) -->
+  <exec_depend>ament_index_python</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

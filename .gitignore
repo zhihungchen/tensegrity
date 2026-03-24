@@ -7,3 +7,9 @@ ros_ws/devel/
 ros_ws/intstall/
 ros_ws/logs/
 ros_ws/.catkin_tools/
+
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+# Local link to external tensegrity_perception checkout (use scripts/link_tensegrity_perception.sh)
+ros2_ws/src/tensegrity_perception
