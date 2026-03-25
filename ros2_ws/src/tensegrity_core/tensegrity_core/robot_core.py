@@ -448,13 +448,13 @@ class TensegrityCore:
             #add control code here
             if not 0.2 in self.cap: #Default capacitance value of MPR121
                 for i in range(len(self.cap)) :
-                    self.length[i] = (self.cap[i] - self.b[i]) / self.m[i] #mm 
+                    self.length[i] = float((self.cap[i] - self.b[i]) / self.m[i]) #mm 
                 #check if motor reached the target
                 for i in range(self.num_motors):
                     if i < 3:
-                        self.pos[i] = (self.length[i] - self.min_length) / self.LEFT_RANGE# calculate the current position of the motor
+                        self.pos[i] = float((self.length[i] - self.min_length) / self.LEFT_RANGE)# calculate the current position of the motor
                     else:
-                        self.pos[i] = (self.length[i] - self.min_length) / self.RANGE# calculate the current position of the motor   
+                        self.pos[i] = float((self.length[i] - self.min_length) / self.RANGE)# calculate the current position of the motor   
             # #read imu data
             # if(sensor_array[0] == 0) :
             #     self.imu[1] = self.quat2vec(sensor_array[1:5])
@@ -478,12 +478,10 @@ class TensegrityCore:
                         print('Arduino '+str(i)+' wrongly initialized, please reboot Arduino')
                     else:     
                         self.send_command(self.stop_msg, self.addresses[i],0)
-
-                else :
-                    print('+')
-                    for i in range(len(self.addresses)) :
-                        self.send_command(self.stop_msg, self.addresses[i],0)
-    
+            else:
+                print('+')
+                self.stop_all()
+            
     
     # def compute_command(self) :
     #     command_msg = self.stop_msg.split()

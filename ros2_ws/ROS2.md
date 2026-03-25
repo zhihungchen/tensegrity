@@ -76,7 +76,7 @@ colcon build --symlink-install --packages-select tensegrity_driver tensegrity_br
 
 ```bash
 source /opt/ros/humble/setup.bash
-source /path/to/ros2_ws/install/setup.bash
+(source /path/to/ros2_ws/install/setup.bash)
 ```
 
 From a monorepo that contains `setup_ros.sh` (if paths match):
