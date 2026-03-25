@@ -1,0 +1,44 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from tensegrity_interfaces/msg/Imu.msg
+// generated code does not contain a copyright notice
+
+
+module tensegrity_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "the global orientation of the bar according to the IMU" "\n"
+      "this message encodes a unit vector pointing in the y-direction of the IMU given by id")
+    struct Imu {
+      int8 id;
+
+      double x;
+
+      double y;
+
+      double z;
+
+      @verbatim (language="comment", text=
+        "float64 q1" "\n"
+        "float64 q2" "\n"
+        "float64 q3" "\n"
+        "float64 q4")
+      double ax;
+
+      double ay;
+
+      double az;
+
+      double gx;
+
+      double gy;
+
+      double gz;
+
+      double mx;
+
+      double my;
+
+      double mz;
+    };
+  };
+};

@@ -1,0 +1,19 @@
+{
+  "package_name": "tensegrity_interfaces",
+  "non_idl_tuples": [
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Node.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Motor.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Info.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Sensor.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Imu.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/MotorsStamped.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/SensorsStamped.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/ImuStamped.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/NodesStamped.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/StampedIndex.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Trajectory.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/TensegrityStamped.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/State.msg",
+    "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces:msg/Action.msg"
+  ]
+}

@@ -1,0 +1,3 @@
+[console_scripts]
+tensegrity_driver_node = tensegrity_driver.robot_driver:main
+

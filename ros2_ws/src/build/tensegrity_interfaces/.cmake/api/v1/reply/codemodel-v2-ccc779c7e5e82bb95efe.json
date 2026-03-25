@@ -1,0 +1,258 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-2ab8248f431acac134fe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "tensegrity_interfaces__py",
+					"jsonFile" : "directory-tensegrity_interfaces__py-b7ccaa80b3995901fdc9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/tensegrity_interfaces__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "tensegrity_interfaces__rs",
+					"jsonFile" : "directory-tensegrity_interfaces__rs-319edb714e7148b7ad74.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/tensegrity_interfaces__rs",
+					"targetIndexes" : 
+					[
+						16
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "tensegrity_interfaces",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_tensegrity_interfaces_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_tensegrity_interfaces_egg-cc0596d10455dcd51dac.json",
+					"name" : "ament_cmake_python_build_tensegrity_interfaces_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_symlink_tensegrity_interfaces::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_symlink_tensegrity_interfaces-4220dff137fa356be1fd.json",
+					"name" : "ament_cmake_python_symlink_tensegrity_interfaces",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces-c68ea9c74bad5834ce84.json",
+					"name" : "tensegrity_interfaces",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__cpp-ab4840f48f640db589fa.json",
+					"name" : "tensegrity_interfaces__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "tensegrity_interfaces__py::@5f8b7f85df715014538d",
+					"jsonFile" : "target-tensegrity_interfaces__py-2c490749a36f017827df.json",
+					"name" : "tensegrity_interfaces__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_generator_c-9c09bb1a56bb4067f882.json",
+					"name" : "tensegrity_interfaces__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_generator_py-9e28a489a1063246a90a.json",
+					"name" : "tensegrity_interfaces__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_c-9079b304d8c0ecc1c363.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_c__pyext-b7ae747bb48e59e3ccbb.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_cpp-4c9b4a4b28724c8a7b31.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_fastrtps_c-87bc1d65598dbf841f17.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_fastrtps_c__pyext-1020746f0dca6fabd7df.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp-6f42cf8dacee60631315.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_introspection_c-d5e26575fbe4de24cda3.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_introspection_c__pyext-593018eeeaafca9ba8ef.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces__rosidl_typesupport_introspection_cpp-2067f88b848d8c8d7179.json",
+					"name" : "tensegrity_interfaces__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "tensegrity_interfaces__rs::@bbf7e7e42dd47758d591",
+					"jsonFile" : "target-tensegrity_interfaces__rs-7dfa7454c8323dbe6fb3.json",
+					"name" : "tensegrity_interfaces__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tensegrity_interfaces_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tensegrity_interfaces_uninstall-d1d8530e839a61995efb.json",
+					"name" : "tensegrity_interfaces_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-18fb8bf14dafc6b76126.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces",
+		"source" : "/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

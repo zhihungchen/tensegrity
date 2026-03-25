@@ -1,0 +1,23 @@
+[1.117s] Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/.:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/build --no-deps symlink_data
+[1.429s] running develop
+[1.663s] running egg_info
+[1.663s] creating tensegrity_driver.egg-info
+[1.663s] writing tensegrity_driver.egg-info/PKG-INFO
+[1.664s] writing dependency_links to tensegrity_driver.egg-info/dependency_links.txt
+[1.665s] writing entry points to tensegrity_driver.egg-info/entry_points.txt
+[1.665s] writing requirements to tensegrity_driver.egg-info/requires.txt
+[1.665s] writing top-level names to tensegrity_driver.egg-info/top_level.txt
+[1.665s] writing manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+[1.667s] reading manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+[1.667s] writing manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+[1.667s] running build_ext
+[1.667s] Creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages/tensegrity-driver.egg-link (link to .)
+[1.668s] Installing tensegrity_driver_node script to /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/tensegrity_driver
+[1.669s] 
+[1.669s] Installed /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver
+[1.669s] running symlink_data
+[1.669s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index
+[1.669s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index/resource_index
+[1.669s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index/resource_index/packages
+[1.670s] error: can't copy '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/resource/tensegrity_driver': doesn't exist or not a regular file
+[1.702s] Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver' returned '1': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/.:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/build --no-deps symlink_data

@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "../rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_c.c"
+  "../rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "../rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_introspection_c.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/__init__.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_action.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_action_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_imu.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_imu_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_imu_stamped.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_imu_stamped_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_info.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_info_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_motor.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_motor_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_motors_stamped.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_motors_stamped_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_node.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_node_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_nodes_stamped.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_nodes_stamped_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_sensor.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_sensor_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_sensors_stamped.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_sensors_stamped_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_stamped_index.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_stamped_index_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_state.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_state_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_tensegrity_stamped.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_tensegrity_stamped_s.c"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_trajectory.py"
+  "../rosidl_generator_py/tensegrity_interfaces/msg/_trajectory_s.c"
+  "CMakeFiles/tensegrity_interfaces__py"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang )
+  include(CMakeFiles/tensegrity_interfaces__py.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

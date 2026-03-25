@@ -1,0 +1,1 @@
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_generator_cpp/tensegrity_interfaces/msg/imu_stamped.hpp

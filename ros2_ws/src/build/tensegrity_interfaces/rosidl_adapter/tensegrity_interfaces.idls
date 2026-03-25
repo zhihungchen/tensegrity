@@ -1,0 +1,14 @@
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Node.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Motor.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Info.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Sensor.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Imu.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/MotorsStamped.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/SensorsStamped.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/ImuStamped.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/NodesStamped.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/StampedIndex.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Trajectory.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/TensegrityStamped.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/State.idl
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_adapter/tensegrity_interfaces:msg/Action.idl

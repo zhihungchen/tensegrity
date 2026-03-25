@@ -1,0 +1,1 @@
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/stamped_index__rosidl_typesupport_fastrtps_cpp.hpp

@@ -1,0 +1,293 @@
+[0.135s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install', '--packages-up-to', 'tensegrity_bringup']
+[0.135s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=['tensegrity_bringup'], packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7a9c4ccf7af0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7a9c4ccf75b0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7a9c4ccf75b0>>)
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.364s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.364s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/pracsys/Desktop/tensegrity/ros2_ws/src'
+[0.364s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.376s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.376s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.376s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.376s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.376s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extension 'ignore'
+[0.377s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extension 'ignore_ament_install'
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extensions ['colcon_pkg']
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extension 'colcon_pkg'
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extensions ['colcon_meta']
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extension 'colcon_meta'
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extensions ['ros']
+[0.378s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_bringup) by extension 'ros'
+[0.380s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_bringup' with type 'ros.ament_cmake' and name 'tensegrity_bringup'
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extension 'ignore'
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extension 'ignore_ament_install'
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extensions ['colcon_pkg']
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extension 'colcon_pkg'
+[0.380s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extensions ['colcon_meta']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extension 'colcon_meta'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extensions ['ros']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_controller) by extension 'ros'
+[0.381s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_controller' with type 'ros.ament_python' and name 'tensegrity_controller'
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extensions ['ignore', 'ignore_ament_install']
+[0.381s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extension 'ignore'
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extension 'ignore_ament_install'
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extensions ['colcon_pkg']
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extension 'colcon_pkg'
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extensions ['colcon_meta']
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extension 'colcon_meta'
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extensions ['ros']
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_core) by extension 'ros'
+[0.382s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_core' with type 'ros.ament_python' and name 'tensegrity_core'
+[0.382s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extensions ['ignore', 'ignore_ament_install']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extension 'ignore'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extension 'ignore_ament_install'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extensions ['colcon_pkg']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extension 'colcon_pkg'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extensions ['colcon_meta']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extension 'colcon_meta'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extensions ['ros']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_driver) by extension 'ros'
+[0.384s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_driver' with type 'ros.ament_python' and name 'tensegrity_driver'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extension 'ignore'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extension 'ignore_ament_install'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extensions ['colcon_pkg']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extension 'colcon_pkg'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extensions ['colcon_meta']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extension 'colcon_meta'
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extensions ['ros']
+[0.385s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_interfaces) by extension 'ros'
+[0.386s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_interfaces' with type 'ros.ament_cmake' and name 'tensegrity_interfaces'
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extensions ['ignore', 'ignore_ament_install']
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extension 'ignore'
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extension 'ignore_ament_install'
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extensions ['colcon_pkg']
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extension 'colcon_pkg'
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extensions ['colcon_meta']
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extension 'colcon_meta'
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extensions ['ros']
+[0.386s] Level 1:colcon.colcon_core.package_identification:_identify(tensegrity_planning) by extension 'ros'
+[0.387s] DEBUG:colcon.colcon_core.package_identification:Package 'tensegrity_planning' with type 'ros.ament_python' and name 'tensegrity_planning'
+[0.387s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.387s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.388s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.388s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.388s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.418s] INFO:colcon.colcon_core.package_selection:Skipping package 'tensegrity_controller' in 'tensegrity_controller'
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.420s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 184 installed packages in /opt/ros/humble
+[0.421s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_target' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_clean_cache' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_clean_first' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'cmake_force_configure' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'ament_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'catkin_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_core' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.449s] DEBUG:colcon.colcon_core.verb:Building package 'tensegrity_core' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core', 'merge_install': False, 'path': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_core', 'symlink_install': True, 'test_result_base': None}
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.449s] DEBUG:colcon.colcon_core.verb:Building package 'tensegrity_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces', 'merge_install': False, 'path': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces', 'symlink_install': True, 'test_result_base': None}
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_args' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_target' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_clean_cache' from command line to 'False'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_clean_first' from command line to 'False'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'cmake_force_configure' from command line to 'False'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'ament_cmake_args' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'catkin_cmake_args' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_driver' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.450s] DEBUG:colcon.colcon_core.verb:Building package 'tensegrity_driver' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver', 'merge_install': False, 'path': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_driver', 'symlink_install': True, 'test_result_base': None}
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_args' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_target' from command line to 'None'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.450s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_clean_cache' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_clean_first' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'cmake_force_configure' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'ament_cmake_args' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'catkin_cmake_args' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_planning' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.451s] DEBUG:colcon.colcon_core.verb:Building package 'tensegrity_planning' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning', 'merge_install': False, 'path': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_planning', 'symlink_install': True, 'test_result_base': None}
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_args' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_target' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.451s] Level 5:colcon.colcon_core.verb:set package 'tensegrity_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.451s] DEBUG:colcon.colcon_core.verb:Building package 'tensegrity_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_bringup', 'merge_install': False, 'path': '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_bringup', 'symlink_install': True, 'test_result_base': None}
+[0.451s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.452s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.453s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces' with build type 'ament_cmake'
+[0.453s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces'
+[0.455s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.455s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.455s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.457s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[0.458s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_core' with build type 'ament_python'
+[0.458s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_core', 'ament_prefix_path')
+[0.458s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/ament_prefix_path.ps1'
+[0.460s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/ament_prefix_path.dsv'
+[0.460s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/ament_prefix_path.sh'
+[0.462s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.462s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.464s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[0.469s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake /home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces
+[0.767s] WARNING:colcon.colcon_ros.task.ament_python.build:Package 'tensegrity_core' doesn't explicitly install a marker in the package index (colcon-ros currently does it implicitly but that fallback will be removed in the future)
+[0.767s] WARNING:colcon.colcon_ros.task.ament_python.build:Package 'tensegrity_core' doesn't explicitly install the 'package.xml' file (colcon-ros currently does it implicitly but that fallback will be removed in the future)
+[0.768s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_core'
+[0.768s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.768s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.769s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[1.152s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core': PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/build --no-deps
+[1.711s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_core', 'pythonpath_develop')
+[1.712s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/share/tensegrity_core/hook/pythonpath_develop.ps1'
+[1.713s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core' returned '0': PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/build --no-deps
+[1.714s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/share/tensegrity_core/hook/pythonpath_develop.dsv'
+[1.715s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/share/tensegrity_core/hook/pythonpath_develop.sh'
+[1.720s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core' for CMake module files
+[1.721s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core' for CMake config files
+[1.722s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib'
+[1.722s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/bin'
+[1.722s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/pkgconfig/tensegrity_core.pc'
+[1.723s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages'
+[1.723s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_core', 'pythonpath')
+[1.723s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/pythonpath.ps1'
+[1.724s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/pythonpath.dsv'
+[1.724s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/hook/pythonpath.sh'
+[1.726s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/bin'
+[1.726s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(tensegrity_core)
+[1.726s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/package.ps1'
+[1.728s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/package.dsv'
+[1.729s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/package.sh'
+[1.730s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/package.bash'
+[1.731s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/tensegrity_core/package.zsh'
+[1.732s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/share/colcon-core/packages/tensegrity_core)
+[2.948s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake /home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_interfaces -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces
+[2.950s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake --build /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces -- -j12 -l12
+[11.396s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake --build /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces -- -j12 -l12
+[11.406s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake --install /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces
+[14.490s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(tensegrity_interfaces)
+[14.491s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces' for CMake module files
+[14.492s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble:${CMAKE_PREFIX_PATH} /usr/bin/cmake --install /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces
+[14.494s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces' for CMake config files
+[14.494s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_interfaces', 'cmake_prefix_path')
+[14.495s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.ps1'
+[14.496s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.dsv'
+[14.497s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.sh'
+[14.499s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib'
+[14.499s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_interfaces', 'ld_library_path_lib')
+[14.499s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.ps1'
+[14.500s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.dsv'
+[14.501s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.sh'
+[14.502s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/bin'
+[14.502s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/pkgconfig/tensegrity_interfaces.pc'
+[14.503s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/python3.10/site-packages'
+[14.504s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/bin'
+[14.505s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.ps1'
+[14.506s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.dsv'
+[14.508s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.sh'
+[14.509s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.bash'
+[14.510s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.zsh'
+[14.511s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/colcon-core/packages/tensegrity_interfaces)
+[14.512s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(tensegrity_interfaces)
+[14.513s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces' for CMake module files
+[14.515s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces' for CMake config files
+[14.515s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_interfaces', 'cmake_prefix_path')
+[14.516s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.ps1'
+[14.517s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.dsv'
+[14.518s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/cmake_prefix_path.sh'
+[14.519s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib'
+[14.520s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_interfaces', 'ld_library_path_lib')
+[14.520s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.ps1'
+[14.521s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.dsv'
+[14.522s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/hook/ld_library_path_lib.sh'
+[14.524s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/bin'
+[14.524s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/pkgconfig/tensegrity_interfaces.pc'
+[14.525s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/python3.10/site-packages'
+[14.526s] Level 1:colcon.colcon_core.environment:checking '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/bin'
+[14.527s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.ps1'
+[14.528s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.dsv'
+[14.530s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.sh'
+[14.531s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.bash'
+[14.532s] INFO:colcon.colcon_core.shell:Creating package script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.zsh'
+[14.533s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/colcon-core/packages/tensegrity_interfaces)
+[14.534s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_driver' with build type 'ament_python'
+[14.534s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_driver', 'ament_prefix_path')
+[14.535s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/tensegrity_driver/hook/ament_prefix_path.ps1'
+[14.537s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/tensegrity_driver/hook/ament_prefix_path.dsv'
+[14.538s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/tensegrity_driver/hook/ament_prefix_path.sh'
+[14.539s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[14.539s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[14.543s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[14.546s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_planning' with build type 'ament_python'
+[14.546s] Level 1:colcon.colcon_core.shell:create_environment_hook('tensegrity_planning', 'ament_prefix_path')
+[14.546s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/tensegrity_planning/hook/ament_prefix_path.ps1'
+[14.548s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/tensegrity_planning/hook/ament_prefix_path.dsv'
+[14.549s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/tensegrity_planning/hook/ament_prefix_path.sh'
+[14.550s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[14.550s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[14.554s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[14.895s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_driver'
+[14.896s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[14.896s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[14.900s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[15.232s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/tensegrity_planning'
+[15.233s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[15.233s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[15.237s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/home/pracsys/ros-install/noetic/install_isolated'
+[15.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/.:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/build --no-deps symlink_data
+[15.657s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/build --no-deps symlink_data
+[16.240s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver' returned '1': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/.:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver/build --no-deps symlink_data
+[16.249s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[16.250s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[16.250s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[16.250s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[16.262s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[16.263s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[16.263s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[16.290s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[16.290s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/local_setup.ps1'
+[16.293s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/_local_setup_util_ps1.py'
+[16.297s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/setup.ps1'
+[16.299s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/local_setup.sh'
+[16.301s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/_local_setup_util_sh.py'
+[16.302s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/setup.sh'
+[16.305s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/local_setup.bash'
+[16.306s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/setup.bash'
+[16.309s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/local_setup.zsh'
+[16.310s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/setup.zsh'

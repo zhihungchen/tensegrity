@@ -1,0 +1,20 @@
+running develop
+running egg_info
+creating tensegrity_driver.egg-info
+writing tensegrity_driver.egg-info/PKG-INFO
+writing dependency_links to tensegrity_driver.egg-info/dependency_links.txt
+writing entry points to tensegrity_driver.egg-info/entry_points.txt
+writing requirements to tensegrity_driver.egg-info/requires.txt
+writing top-level names to tensegrity_driver.egg-info/top_level.txt
+writing manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+reading manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+writing manifest file 'tensegrity_driver.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/python3.10/site-packages/tensegrity-driver.egg-link (link to .)
+Installing tensegrity_driver_node script to /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/lib/tensegrity_driver
+
+Installed /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_driver
+running symlink_data
+creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index
+creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index/resource_index
+creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_driver/share/ament_index/resource_index/packages

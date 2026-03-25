@@ -1,0 +1,29 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from tensegrity_interfaces/msg/Action.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Point.idl"
+
+module tensegrity_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "This is a message that represents the MPC-selected actions for a tensegrity robot.  The variable actions is a sequence of k strings that represent the depth-k motion plan from MPC.  coms and pas are the current center of mass and principal axis plus the k predicted future coms and pas corresponding to the selected sequence of actions. This message depends on geometry_msgs/Point.")
+    struct Action {
+      sequence<string> actions;
+
+      double cost;
+
+      sequence<geometry_msgs::msg::Point> coms;
+
+      sequence<geometry_msgs::msg::Point> pas;
+
+      sequence<geometry_msgs::msg::Point> endcaps;
+
+      double dist_weight;
+
+      double ang_weight;
+
+      double prog_weight;
+    };
+  };
+};

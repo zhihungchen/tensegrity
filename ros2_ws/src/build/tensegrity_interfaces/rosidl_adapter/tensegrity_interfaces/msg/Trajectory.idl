@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from tensegrity_interfaces/msg/Trajectory.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Point.idl"
+
+module tensegrity_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "This is a message that represents the trajectory following and MPC predictions for a tensegrity robot.  Trajectory is a sequence of points along the desired trajectory.  coms is a sequence of predicted centers of mass for the robot.  pas is a sequence of predicted principal axis unit vectors.  This message depends on geometry_msgs/Point")
+    struct Trajectory {
+      sequence<geometry_msgs::msg::Point> trajectory;
+
+      sequence<geometry_msgs::msg::Point> coms;
+
+      sequence<geometry_msgs::msg::Point> pas;
+
+      int8 trajectory_segment;
+    };
+  };
+};

@@ -1,0 +1,4 @@
+[console_scripts]
+astar_planner_node = tensegrity_planning.astar_planner_node:main
+rl_planner_node = tensegrity_planning.rl_planner_node:main
+

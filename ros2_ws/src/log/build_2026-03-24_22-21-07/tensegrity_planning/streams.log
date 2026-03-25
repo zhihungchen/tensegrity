@@ -1,0 +1,24 @@
+[1.110s] Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning': AMENT_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/lib/python3.10/site-packages:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/build --no-deps symlink_data
+[1.418s] running develop
+[1.654s] running egg_info
+[1.654s] creating tensegrity_planning.egg-info
+[1.655s] writing tensegrity_planning.egg-info/PKG-INFO
+[1.655s] writing dependency_links to tensegrity_planning.egg-info/dependency_links.txt
+[1.656s] writing entry points to tensegrity_planning.egg-info/entry_points.txt
+[1.656s] writing requirements to tensegrity_planning.egg-info/requires.txt
+[1.656s] writing top-level names to tensegrity_planning.egg-info/top_level.txt
+[1.656s] writing manifest file 'tensegrity_planning.egg-info/SOURCES.txt'
+[1.657s] reading manifest file 'tensegrity_planning.egg-info/SOURCES.txt'
+[1.657s] writing manifest file 'tensegrity_planning.egg-info/SOURCES.txt'
+[1.658s] running build_ext
+[1.658s] Creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/lib/python3.10/site-packages/tensegrity-planning.egg-link (link to .)
+[1.660s] Installing astar_planner_node script to /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/lib/tensegrity_planning
+[1.660s] Installing rl_planner_node script to /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/lib/tensegrity_planning
+[1.660s] 
+[1.660s] Installed /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning
+[1.661s] running symlink_data
+[1.661s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/ament_index
+[1.661s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/ament_index/resource_index
+[1.661s] creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/ament_index/resource_index/packages
+[1.661s] symbolically linking /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/resource/tensegrity_planning -> /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/ament_index/resource_index/packages
+[1.661s] symbolically linking /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_planning/package.xml -> /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_planning/share/tensegrity_planning

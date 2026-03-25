@@ -1,0 +1,1 @@
+/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/action__rosidl_typesupport_introspection_c.h

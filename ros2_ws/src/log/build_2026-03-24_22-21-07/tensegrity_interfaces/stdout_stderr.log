@@ -1,0 +1,540 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found std_msgs: 4.9.1 (/opt/ros/humble/share/std_msgs/cmake)
+-- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)
+-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+-- Found PythonExtra: .so  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces
+[  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[  2%] [34m[1mGenerating Rust code for ROS interfaces[0m
+[  2%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  2%] Built target ament_cmake_python_symlink_tensegrity_interfaces
+running egg_info
+creating tensegrity_interfaces.egg-info
+writing tensegrity_interfaces.egg-info/PKG-INFO
+writing dependency_links to tensegrity_interfaces.egg-info/dependency_links.txt
+writing top-level names to tensegrity_interfaces.egg-info/top_level.txt
+writing manifest file 'tensegrity_interfaces.egg-info/SOURCES.txt'
+reading manifest file 'tensegrity_interfaces.egg-info/SOURCES.txt'
+writing manifest file 'tensegrity_interfaces.egg-info/SOURCES.txt'
+[  2%] Built target ament_cmake_python_build_tensegrity_interfaces_egg
+[  2%] Built target tensegrity_interfaces__rs
+[  2%] Built target tensegrity_interfaces__cpp
+[  3%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[  4%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[  5%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[  7%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/node__functions.c.o[0m
+[  7%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/motor__functions.c.o[0m
+[  7%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/info__functions.c.o[0m
+[  8%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/sensor__functions.c.o[0m
+[  9%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/motors_stamped__functions.c.o[0m
+[  9%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/imu__functions.c.o[0m
+[ 10%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/sensors_stamped__functions.c.o[0m
+[ 10%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/nodes_stamped__functions.c.o[0m
+[ 11%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/imu_stamped__functions.c.o[0m
+[ 12%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/tensegrity_stamped__functions.c.o[0m
+[ 14%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/stamped_index__functions.c.o[0m
+[ 14%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/trajectory__functions.c.o[0m
+[ 14%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/state__functions.c.o[0m
+[ 15%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_c.dir/rosidl_generator_c/tensegrity_interfaces/msg/detail/action__functions.c.o[0m
+[ 16%] [32m[1mLinking C shared library libtensegrity_interfaces__rosidl_generator_c.so[0m
+[ 16%] Built target tensegrity_interfaces__rosidl_generator_c
+[ 17%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 18%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 19%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/info__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/node__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/motor__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/sensor__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/imu__type_support.cpp.o[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/motors_stamped__type_support.cpp.o[0m
+[ 24%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/sensors_stamped__type_support.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/nodes_stamped__type_support.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/imu_stamped__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/stamped_index__type_support.cpp.o[0m
+[ 27%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/trajectory__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/tensegrity_stamped__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/state__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/node__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/node__type_support.cpp.o[0m
+[ 29%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/motor__type_support.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/motor__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/info__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/sensor__type_support.cpp.o[0m
+[ 32%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/imu__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/motors_stamped__type_support.cpp.o[0m
+[ 34%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/sensors_stamped__type_support.cpp.o[0m
+[ 34%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/imu_stamped__type_support.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/info__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/nodes_stamped__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/node__type_support.cpp.o[0m
+[ 37%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/sensor__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensegrity_interfaces/msg/action__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/imu__type_support.cpp.o[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/motor__type_support.cpp.o[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/stamped_index__type_support.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/info__type_support.cpp.o[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/trajectory__type_support.cpp.o[0m
+[ 42%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/node__type_support.c.o[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/tensegrity_stamped__type_support.cpp.o[0m
+[ 43%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/motor__type_support.c.o[0m
+[ 44%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/state__type_support.cpp.o[0m
+[ 45%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/info__type_support.c.o[0m
+[ 46%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensegrity_interfaces/msg/action__type_support.cpp.o[0m
+[ 47%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/sensor__type_support.cpp.o[0m
+[ 47%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/sensor__type_support.c.o[0m
+[ 48%] [32m[1mLinking CXX shared library libtensegrity_interfaces__rosidl_typesupport_c.so[0m
+[ 49%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/motors_stamped__type_support.cpp.o[0m
+[ 50%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/imu__type_support.c.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/node__type_support_c.cpp.o[0m
+[ 50%] Built target tensegrity_interfaces__rosidl_typesupport_c
+[ 51%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/sensors_stamped__type_support.cpp.o[0m
+[ 52%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/motors_stamped__type_support.c.o[0m
+[ 53%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/sensors_stamped__type_support.c.o[0m
+[ 53%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/imu_stamped__type_support.c.o[0m
+[ 54%] [32m[1mLinking CXX shared library libtensegrity_interfaces__rosidl_typesupport_cpp.so[0m
+[ 55%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/nodes_stamped__type_support.c.o[0m
+[ 55%] Built target tensegrity_interfaces__rosidl_typesupport_cpp
+[ 55%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/imu__type_support.cpp.o[0m
+[ 56%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/stamped_index__type_support.c.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/motor__type_support_c.cpp.o[0m
+[ 58%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/info__type_support_c.cpp.o[0m
+[ 59%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/trajectory__type_support.c.o[0m
+[ 59%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/sensor__type_support_c.cpp.o[0m
+[ 60%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/motors_stamped__type_support.cpp.o[0m
+[ 60%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/tensegrity_stamped__type_support.c.o[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/imu__type_support_c.cpp.o[0m
+[ 62%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/imu_stamped__type_support.cpp.o[0m
+[ 63%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/state__type_support.c.o[0m
+[ 64%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensegrity_interfaces/msg/detail/action__type_support.c.o[0m
+[ 64%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/nodes_stamped__type_support.cpp.o[0m
+[ 65%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/stamped_index__type_support.cpp.o[0m
+[ 66%] [32m[1mLinking C shared library libtensegrity_interfaces__rosidl_typesupport_introspection_c.so[0m
+[ 67%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/motors_stamped__type_support_c.cpp.o[0m
+[ 67%] Built target tensegrity_interfaces__rosidl_typesupport_introspection_c
+[ 68%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/sensors_stamped__type_support_c.cpp.o[0m
+[ 68%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/imu_stamped__type_support_c.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/nodes_stamped__type_support_c.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/sensors_stamped__type_support.cpp.o[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/stamped_index__type_support_c.cpp.o[0m
+[ 72%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/trajectory__type_support.cpp.o[0m
+[ 73%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/imu_stamped__type_support.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/trajectory__type_support_c.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/tensegrity_stamped__type_support_c.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/tensegrity_stamped__type_support.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/nodes_stamped__type_support.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/stamped_index__type_support.cpp.o[0m
+[ 77%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/trajectory__type_support.cpp.o[0m
+[ 78%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/tensegrity_stamped__type_support.cpp.o[0m
+[ 78%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/state__type_support.cpp.o[0m
+[ 78%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/state__type_support.cpp.o[0m
+[ 79%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/state__type_support_c.cpp.o[0m
+[ 80%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensegrity_interfaces/msg/detail/action__type_support_c.cpp.o[0m
+[ 81%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensegrity_interfaces/msg/detail/action__type_support.cpp.o[0m
+[ 82%] [32mBuilding CXX object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensegrity_interfaces/msg/detail/dds_fastrtps/action__type_support.cpp.o[0m
+[ 83%] [32m[1mLinking CXX shared library libtensegrity_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[ 83%] Built target tensegrity_interfaces__rosidl_typesupport_fastrtps_c
+[ 84%] [32m[1mLinking CXX shared library libtensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[ 85%] [32m[1mLinking CXX shared library libtensegrity_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[ 85%] Built target tensegrity_interfaces__rosidl_typesupport_fastrtps_cpp
+[ 85%] Built target tensegrity_interfaces__rosidl_typesupport_introspection_cpp
+[ 85%] Built target tensegrity_interfaces
+[ 86%] [34m[1mGenerating Python code for ROS interfaces[0m
+[ 86%] Built target tensegrity_interfaces__py
+[ 87%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_sensor_s.c.o[0m
+[ 87%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_imu_s.c.o[0m
+[ 87%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_node_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_info_s.c.o[0m
+[ 89%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_sensors_stamped_s.c.o[0m
+[ 90%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_motors_stamped_s.c.o[0m
+[ 90%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_nodes_stamped_s.c.o[0m
+[ 91%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_imu_stamped_s.c.o[0m
+[ 92%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_motor_s.c.o[0m
+[ 93%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_stamped_index_s.c.o[0m
+[ 95%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_tensegrity_stamped_s.c.o[0m
+[ 95%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_trajectory_s.c.o[0m
+[ 96%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_state_s.c.o[0m
+[ 96%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_generator_py.dir/rosidl_generator_py/tensegrity_interfaces/msg/_action_s.c.o[0m
+[ 97%] [32m[1mLinking C shared library rosidl_generator_py/tensegrity_interfaces/libtensegrity_interfaces__rosidl_generator_py.so[0m
+[ 97%] Built target tensegrity_interfaces__rosidl_generator_py
+[ 97%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[ 97%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[ 97%] [32mBuilding C object CMakeFiles/tensegrity_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[ 98%] [32m[1mLinking C shared library rosidl_generator_py/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[ 99%] [32m[1mLinking C shared library rosidl_generator_py/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[100%] Built target tensegrity_interfaces__rosidl_typesupport_introspection_c__pyext
+[100%] Built target tensegrity_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[100%] Built target tensegrity_interfaces__rosidl_typesupport_c__pyext
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/ament_index/resource_index/rosidl_interfaces/tensegrity_interfaces
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/action.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__functions.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__struct.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__type_support.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/imu.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/imu_stamped.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/info.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/motor.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/motors_stamped.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/node.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/nodes_stamped.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/rosidl_generator_c__visibility_control.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/sensor.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/sensors_stamped.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/stamped_index.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/state.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/tensegrity_stamped.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/trajectory.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/library_path.sh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/library_path.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/action.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__builder.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__struct.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__traits.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__type_support.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/imu.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/imu_stamped.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/info.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/motor.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/motors_stamped.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/node.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/nodes_stamped.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/sensor.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/sensors_stamped.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/stamped_index.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/state.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/tensegrity_stamped.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/trajectory.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/action__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/imu_stamped__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/info__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motor__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/motors_stamped__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/node__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/nodes_stamped__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensor__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/sensors_stamped__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/stamped_index__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/state__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/tensegrity_stamped__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/include/tensegrity_interfaces/tensegrity_interfaces/msg/detail/trajectory__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/pythonpath.sh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/pythonpath.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/__init__.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_c.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/_tensegrity_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/libtensegrity_interfaces__rosidl_generator_py.so
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/__init__.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_action.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_action_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu_stamped.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu_stamped_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_info.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_info_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motor.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motor_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motors_stamped.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motors_stamped_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_node.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_node_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_nodes_stamped.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_nodes_stamped_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensor.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensor_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensors_stamped.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensors_stamped_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_stamped_index.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_stamped_index_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_state.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_state_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_tensegrity_stamped.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_tensegrity_stamped_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_trajectory.py
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_trajectory_s.c
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/tensegrity_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/ament_index/resource_index/rust_packages/tensegrity_interfaces
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/rust/Cargo.toml
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/rust/build.rs
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/rust/src/lib.rs
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/rust/src/msg.rs
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/rust/src/msg/rmw.rs
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Node.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Motor.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Info.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Sensor.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Imu.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/MotorsStamped.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/SensorsStamped.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/ImuStamped.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/NodesStamped.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/StampedIndex.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Trajectory.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/TensegrityStamped.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/State.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Action.idl
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Node.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Motor.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Info.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Sensor.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Imu.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/MotorsStamped.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/SensorsStamped.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/ImuStamped.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/NodesStamped.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/StampedIndex.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Trajectory.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/TensegrityStamped.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/State.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/msg/Action.msg
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/ament_index/resource_index/package_run_dependencies/tensegrity_interfaces
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/ament_index/resource_index/parent_prefix_path/tensegrity_interfaces
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/ament_prefix_path.sh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/ament_prefix_path.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/path.sh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/environment/path.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/local_setup.bash
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/local_setup.sh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/local_setup.zsh
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/local_setup.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.dsv
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/ament_index/resource_index/packages/tensegrity_interfaces
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/rosidl_cmake-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfacesConfig.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfacesConfig-version.cmake
+-- Symlinking: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/package.xml
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_generator_c.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_generator_c.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_c.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_c.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_cpp.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_typesupport_cpp.so" to ""
+Listing '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/__init__.py'...
+Listing '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/__init__.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_action.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_imu_stamped.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_info.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motor.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_motors_stamped.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_node.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_nodes_stamped.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensor.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_sensors_stamped.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_stamped_index.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_state.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_tensegrity_stamped.py'...
+Compiling '/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/local/lib/python3.10/dist-packages/tensegrity_interfaces/msg/_trajectory.py'...
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_generator_py.so
+-- Set runtime path of "/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/lib/libtensegrity_interfaces__rosidl_generator_py.so" to ""
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_generator_cExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_cExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_generator_cppExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/tensegrity_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_generator_pyExport.cmake
+-- Installing: /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_interfaces/share/tensegrity_interfaces/cmake/export_tensegrity_interfaces__rosidl_generator_pyExport-noconfig.cmake

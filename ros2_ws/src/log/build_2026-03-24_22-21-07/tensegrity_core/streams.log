@@ -1,0 +1,16 @@
+[0.694s] Invoking command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core': PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/build --no-deps
+[0.990s] running develop
+[1.224s] running egg_info
+[1.225s] creating tensegrity_core.egg-info
+[1.225s] writing tensegrity_core.egg-info/PKG-INFO
+[1.225s] writing dependency_links to tensegrity_core.egg-info/dependency_links.txt
+[1.225s] writing requirements to tensegrity_core.egg-info/requires.txt
+[1.225s] writing top-level names to tensegrity_core.egg-info/top_level.txt
+[1.226s] writing manifest file 'tensegrity_core.egg-info/SOURCES.txt'
+[1.227s] reading manifest file 'tensegrity_core.egg-info/SOURCES.txt'
+[1.228s] writing manifest file 'tensegrity_core.egg-info/SOURCES.txt'
+[1.229s] running build_ext
+[1.229s] Creating /home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages/tensegrity-core.egg-link (link to .)
+[1.230s] 
+[1.230s] Installed /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core
+[1.255s] Invoked command in '/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core' returned '0': PYTHONPATH=/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pracsys/Desktop/tensegrity/ros2_ws/src/install/tensegrity_core/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_core/build --no-deps

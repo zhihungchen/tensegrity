@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "tensegrity_interfaces__rs",
+		"source" : "/home/pracsys/Desktop/tensegrity/ros2_ws/src/build/tensegrity_interfaces/tensegrity_interfaces__rs"
+	}
+}
