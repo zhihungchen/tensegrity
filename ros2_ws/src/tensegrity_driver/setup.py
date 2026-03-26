@@ -22,6 +22,7 @@ setup(
     entry_points={
         'console_scripts': [
             'tensegrity_driver_node = tensegrity_driver.robot_driver:main',
+            'robot_driver_direct = tensegrity_driver.robot_driver_direct:main',
         ],
     },
 )

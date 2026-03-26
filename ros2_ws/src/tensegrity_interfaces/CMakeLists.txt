@@ -25,6 +25,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TensegrityStamped.msg"
   "msg/State.msg"
   "msg/Action.msg"
+  "msg/MotorCommand.msg"
   DEPENDENCIES std_msgs geometry_msgs
 )
 

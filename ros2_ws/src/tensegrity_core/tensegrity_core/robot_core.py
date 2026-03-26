@@ -97,12 +97,14 @@ class TensegrityCore:
         self.which_Arduino = None
         
         # keyboard variables for testing
-        self.armed = False      #default: motors OFF
+        self.armed = True      #default: motors OFF
 
         # --- control / input --- #
         self.bus = CommandBus()
         self.kbd = None
         self._last_sent = None  # optional: avoid spamming identical command
+
+        self.current_motor_speeds = [0] * self.num_motors
 
     
     #----------------------------------------------------------------------#
@@ -395,7 +397,52 @@ class TensegrityCore:
                 self.send_command(out, addr, 0)
 
 
-    
+    def is_ready(self) -> bool:
+        return None not in self.addresses
+
+
+    def build_motor_command(self, speeds):
+        """
+        Build one full command string from a motor speed vector.
+        speeds: list of signed values, length = num_motors
+        """
+        if len(speeds) != self.num_motors:
+            raise ValueError(
+                f"Expected {self.num_motors} motor speeds, got {len(speeds)}"
+            )
+
+        msg = self.stop_msg.split()
+        for i in range(self.num_motors):
+            speed_i = int(speeds[i])
+            msg[self.offset + i] = str(speed_i * int(self.flip[i]))
+        return " ".join(msg)
+
+
+    def motor_to_arduino(self, motor_id: int) -> int:
+        mapping = {
+            0: 2,
+            5: 2,
+            1: 1,
+            3: 1,
+            2: 0,
+            4: 0,
+        }
+        return mapping[motor_id]
+
+    def set_motor_speed(self, motor_id, speed):
+        if not (0 <= motor_id < self.num_motors):
+            raise IndexError(f"motor_id {motor_id} out of range")
+
+        if not self.is_ready():
+            raise RuntimeError("Arduino addresses are not fully discovered yet")
+
+        self.current_motor_speeds[motor_id] = int(speed)
+
+        cmd = self.build_motor_command(self.current_motor_speeds)
+        target_arduino = self.motor_to_arduino(motor_id)
+
+        self.send_command(cmd, self.addresses[target_arduino], 0)
+
     def read(self):
         received_data, sensor_array, addr = self.udp_client.recv_packet()
         print("[RX addr:", addr)

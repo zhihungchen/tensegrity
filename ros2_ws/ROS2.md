@@ -60,7 +60,7 @@ If GPU/pyrender causes issues, install the versions pinned in `tensegrity_percep
 
 ```bash
 source /opt/ros/humble/setup.bash
-cd /path/to/ros2_ws
+## cd /path/to/ros2_ws
 colcon build --symlink-install --packages-up-to tensegrity_bringup
 source install/setup.bash
 ```
