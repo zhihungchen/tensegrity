@@ -11,6 +11,11 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/calibration', ['calibration/calibration_charles.xls']),
         ('share/' + package_name + '/states', ['states/quasi_static.json']),
+        ('share/' + package_name + '/examples', ['examples/motor_command_script.example.json']),
+        (
+            'share/' + package_name + '/motor_scripts',
+            ['motor_scripts/motor_command.example.json'],
+        ),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,6 +28,7 @@ setup(
         'console_scripts': [
             'tensegrity_driver_node = tensegrity_driver.robot_driver:main',
             'robot_driver_direct = tensegrity_driver.robot_driver_direct:main',
+            'motor_control_test = tensegrity_driver.motor_control_test:main',
         ],
     },
 )

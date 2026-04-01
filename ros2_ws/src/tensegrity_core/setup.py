@@ -7,7 +7,7 @@ setup(
     version='0.0.0',
     packages=['tensegrity_core', 'tensegrity_core.controllers', 'tensegrity_core.inputs'],
     package_dir={'': '.'},
-    install_requires=['setuptools', 'numpy', 'scipy'],
+    install_requires=['setuptools', 'numpy', 'scipy', 'xlrd'],
     zip_safe=True,
     maintainer='pracsys',
     maintainer_email='pracsys@todo.todo',

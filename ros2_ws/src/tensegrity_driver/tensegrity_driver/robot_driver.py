@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """
-ROS2 driver: wraps TensegrityCore, publishes control_msg and state_msg,
+ROS2 gait driver: wraps TensegrityCore, publishes control_msg and state_msg,
 subscribes to /action_msg and pushes actions into the core.
+
+UDP RX runs in core.start() background thread; this timer does not call core.read().
+Gait motor vectors go through _dispatch_motor_speeds(..., ControlMode.GAIT) only.
 """
 import os
 from pathlib import Path
+from typing import List
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
@@ -12,6 +17,7 @@ from std_msgs.msg import Header
 from tensegrity_core.robot_config import RobotConfig
 from tensegrity_core.robot_core import TensegrityCore
 from tensegrity_core.udp_client import UdpClient
+from tensegrity_driver.control_mode import ControlMode, ControlModeHolder
 from tensegrity_interfaces.msg import (
     Motor,
     Info,
@@ -31,6 +37,7 @@ class TensegrityDriverNode(Node):
         self.cfg = cfg if cfg is not None else RobotConfig()
         self.core = None
         self._last_action_msg = None
+        self._mode_holder = ControlModeHolder(ControlMode.IDLE)
 
         qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE, history=HistoryPolicy.KEEP_LAST)
         self.control_pub = self.create_publisher(
@@ -58,6 +65,8 @@ class TensegrityDriverNode(Node):
             states_path=states_path,
         )
         self.get_logger().info('Driver initialized with core; press s to stop, q to quit')
+
+        self.core.start()
 
         self.timer = self.create_timer(1.0 / 50.0, self._timer_callback)
 
@@ -106,8 +115,41 @@ class TensegrityDriverNode(Node):
             ],
         }
 
+    def _update_control_mode_from_core(self) -> None:
+        """Idle when disarmed or paused; GAIT when armed and gait controller is active."""
+        if self.core.quitting:
+            return
+        desired = ControlMode.IDLE
+        if (
+            self.core.keep_going
+            and self.core.armed
+            and self.core.controller is not None
+        ):
+            desired = ControlMode.GAIT
+        prev = self._mode_holder.get()
+        if prev == desired:
+            return
+        self._mode_holder.set(desired)
+        if desired == ControlMode.IDLE:
+            self.core.stop_all()
+
+    def _dispatch_motor_speeds(
+        self, speeds: List[int], required_mode: ControlMode
+    ) -> bool:
+        """
+        Only gate for core.send_motor_speeds from this node.
+        Gait stepping must use required_mode=GAIT so direct driver cannot conflict.
+        """
+        if self._mode_holder.get() != required_mode:
+            return False
+        self.core.send_motor_speeds(speeds)
+        return True
+
     def _build_control_msg(self):
         c = self.core
+        snap = c.get_latest_state()
+        ctl = c.controller
+        gait_step = ctl.state if ctl is not None else (c.state if c.state is not None else 0)
         msg = TensegrityStamped()
         msg.header = Header()
         msg.header.stamp = self.get_clock().now().to_msg()
@@ -132,31 +174,35 @@ class TensegrityDriverNode(Node):
         for i in range(c.num_motors):
             m = Motor()
             m.id = int(max(-128, min(127, i)))
-            m.position = c.pos[i]
-            m.target = c.states[c.state, i] if c.states is not None else 0.0
-            m.speed = c.command[i] * c.max_speed
-            m.done = bool(c.done[i])
-            m.error = c.controller.error[i] if c.controller else 0.0
-            m.d_error = c.controller.d_error[i] if c.controller else 0.0
-            m.cum_error = c.controller.cum_error[i] if c.controller else 0.0
-            m.encoder_counts = int(c.encoder_counts[i])
-            m.encoder_length = c.encoder_length[i]
+            m.position = float(snap.pos[i])
+            m.target = (
+                float(c.states[gait_step, i]) if c.states is not None else 0.0
+            )
+            m.speed = (
+                float(ctl.command[i] * c.max_speed) if ctl is not None else 0.0
+            )
+            m.done = bool(ctl.done[i]) if ctl is not None else False
+            m.error = float(ctl.error[i]) if ctl is not None else 0.0
+            m.d_error = float(ctl.d_error[i]) if ctl is not None else 0.0
+            m.cum_error = float(ctl.cum_error[i]) if ctl is not None else 0.0
+            m.encoder_counts = int(snap.encoder_counts[i])
+            m.encoder_length = float(snap.encoder_length[i])
             msg.motors.append(m)
         for i in range(c.num_sensors):
             s = Sensor()
             s.id = i
-            s.length = c.length[i]
-            s.capacitance = c.cap[i]
+            s.length = float(snap.length[i])
+            s.capacitance = float(snap.cap[i])
             msg.sensors.append(s)
         for rod in range(3):
             imu = Imu()
             imu.id = rod
-            imu.ax = c.accelerometer[rod][0]
-            imu.ay = c.accelerometer[rod][1]
-            imu.az = c.accelerometer[rod][2]
-            imu.gx = c.gyroscope[rod][0]
-            imu.gy = c.gyroscope[rod][1]
-            imu.gz = c.gyroscope[rod][2]
+            imu.ax = float(snap.accelerometer[rod][0])
+            imu.ay = float(snap.accelerometer[rod][1])
+            imu.az = float(snap.accelerometer[rod][2])
+            imu.gx = float(snap.gyroscope[rod][0])
+            imu.gy = float(snap.gyroscope[rod][1])
+            imu.gz = float(snap.gyroscope[rod][2])
             msg.imus.append(imu)
         # Perception overlays (COM / planned path) expect `trajectory` to exist; populate when MPC data exists.
         traj = Trajectory()
@@ -189,25 +235,30 @@ class TensegrityDriverNode(Node):
                 return
             self.core.bus.clear_edge_flags()
 
-            self.core.read()
+            self._update_control_mode_from_core()
+            mode = self._mode_holder.get()
+
             self.core.apply_manual_jog(intent)
 
             if (
-                self.core.keep_going
-                and None not in self.core.addresses
+                mode == ControlMode.GAIT
+                and self.core.keep_going
+                and self.core.is_ready()
                 and self.core.armed
                 and self.core.controller is not None
             ):
-                msg_list, _ = self.core.controller.step(
-                    self.core.pos,
-                    length=self.core.length,
-                    cap=self.core.cap,
+                snap = self.core.get_latest_state()
+                _, _ = self.core.controller.step(
+                    snap.pos,
+                    length=snap.length,
+                    cap=snap.cap,
                 )
-                self.core.send_command(
-                    ' '.join(msg_list),
-                    self.core.addresses[self.core.which_Arduino],
-                    0,
-                )
+                self.core.state = self.core.controller.state
+                speeds = [
+                    int(round(self.core.controller.command[i] * self.core.max_speed))
+                    for i in range(self.core.num_motors)
+                ]
+                self._dispatch_motor_speeds(speeds, ControlMode.GAIT)
 
             self.control_pub.publish(self._build_control_msg())
             if self.state_pub.get_subscription_count() > 0 or self.state_pub.get_publisher_count() > 0:
@@ -216,6 +267,16 @@ class TensegrityDriverNode(Node):
             self.get_logger().error('Driver error: %s' % e)
             self.core.keep_going = False
             self.core.stop_all()
+
+    def destroy_node(self):
+        try:
+            if self.core is not None:
+                self.get_logger().info('Stopping RX and motors before shutdown')
+                self.core.stop()
+                self.core.stop_all()
+        except Exception as e:
+            self.get_logger().warn('Shutdown cleanup: %s' % e)
+        super().destroy_node()
 
 
 def main(args=None):

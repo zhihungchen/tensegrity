@@ -17,6 +17,7 @@ class FakeUdpClient:
         self.dt = 1.0 / max(hz, 1e-6)
         self.k = 0
         self.t0 = time.time()
+        self._recv_closed = False
 
         self.addresses: List[Addr] = [
             (f"192.168.0.{100+i}", port) for i in range(num_arduino)
@@ -24,11 +25,17 @@ class FakeUdpClient:
 
         self.sent_log = []
 
+    def close_recv(self) -> None:
+        """Signal RX loop to exit (no real socket)."""
+        self._recv_closed = True
+
     def send(self, payload: str, addr: Addr):
         # 不送 UDP，只記錄
         self.sent_log.append((time.time(), addr, payload))
 
     def recv_packet(self):
+        if self._recv_closed:
+            raise OSError("FakeUdpClient recv closed")
         time.sleep(self.dt)
         t = time.time() - self.t0
 

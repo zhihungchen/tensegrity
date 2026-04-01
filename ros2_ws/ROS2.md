@@ -1,10 +1,22 @@
-# ROS 2 notes (tensegrity + tensegrity_perception)
+# ROS 2 — tensegrity workspace
 
-Assumptions: Ubuntu with ROS 2 **Humble** (or **Jazzy** / **Iron**), `colcon` and `rosdep` installed, robot reachable over UDP with the same IP/port as `tensegrity_core.RobotConfig`.
+**Assumptions:** Ubuntu, ROS 2 **Humble** / **Jazzy** / **Iron**, `colcon` + `rosdep`. Robot UDP matches [`RobotConfig`](src/tensegrity_core/tensegrity_core/robot_config.py) (`UDP_IP` / `UDP_PORT`, default `0.0.0.0:2390`).
 
-## 1. Workspace layout
+---
 
-Clone or place both repositories so `tensegrity_perception` sits next to the other ROS 2 packages:
+## Architecture
+
+| Layer | Role |
+|-------|------|
+| **`tensegrity_core`** | UDP sockets, **RX thread** (`TensegrityCore.start()` / `stop()`), parse → **`get_latest_state()`**. **`send_motor_speeds`**, **`stop_all()`**, **`set_motor_speed`**. No ROS, no gait/direct policy. Optional **`debug_udp`** + **`debug_udp_min_interval_s`**. |
+| **`tensegrity_driver_node`** ([`robot_driver.py`](src/tensegrity_driver/tensegrity_driver/robot_driver.py)) | Gait PID, **`/action_msg`**, **`/control_msg`**, **`/state_msg`**. Modes **idle** / **gait**; motor vectors only via **`_dispatch_motor_speeds(..., GAIT)`**. Timer does **not** call **`core.read()`**. |
+| **`robot_driver_direct`** ([`robot_driver_direct.py`](src/tensegrity_driver/tensegrity_driver/robot_driver_direct.py)) | **`/motor_cmd`**, JSON motor script in a **background thread**. Modes **idle** / **direct** (GAIT enum unused). Vectors only via **`_dispatch_motor_speeds(..., DIRECT)`**. **`core.start()`** on init, **`core.stop()`** on shutdown. |
+
+Default launch ([`bringup.py`](src/tensegrity_bringup/launch/bringup.py)) runs **`tensegrity_driver_node`**, not `robot_driver_direct`.
+
+---
+
+## Workspace layout
 
 ```text
 ros2_ws/src/
@@ -13,152 +25,163 @@ ros2_ws/src/
   tensegrity_driver/
   tensegrity_planning/
   tensegrity_bringup/
-  tensegrity_controller/   # optional; no nodes
-  tensegrity_perception/   # from branch ros2
+  tensegrity_controller/    # optional
+  tensegrity_perception/    # optional; link if used
 ```
-
-If you use the `tensegrity` repo’s nested `ros2_ws` and keep `tensegrity_perception` beside it (e.g. under the same parent `src/` as `tensegrity`), link it in:
 
 ```bash
 cd /path/to/tensegrity/ros2_ws
-./scripts/link_tensegrity_perception.sh /path/to/tensegrity_perception
-# or with default relative path to ../../../tensegrity_perception from this layout:
-./scripts/link_tensegrity_perception.sh
+./scripts/link_tensegrity_perception.sh   # optional
 ```
 
-## 2. System dependencies (ROS + build tools)
+---
+
+## Dependencies, build, environment
 
 ```bash
+# once
 sudo apt update
 sudo apt install -y python3-colcon-common-extensions python3-rosdep ros-humble-desktop
-# Replace humble with jazzy/iron if needed.
-sudo rosdep init   # skip if already done
+sudo rosdep init    
 rosdep update
-```
-
-## 3. rosdep for workspace packages
-
-From `ros2_ws`:
-
-```bash
+## cd /path/to/ros2_ws
 source /opt/ros/humble/setup.bash
-cd /path/to/ros2_ws
-rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install --packages-select tensegrity_driver ## replace with node
+source install/setup.bash
 ```
 
-## 4. Python packages (perception)
-
-Not all perception libraries are satisfied by `rosdep`; use pip in a venv or user site (match the Python version ROS uses):
+**Perception (pip, if you use `tensegrity_perception`):**
 
 ```bash
 pip3 install --user numpy scipy PyYAML opencv-python-headless open3d trimesh pyrender easydict
 ```
 
-If GPU/pyrender causes issues, install the versions pinned in `tensegrity_perception/environment.yml` where possible.
-
-## 5. Build
+**Every new terminal:**
 
 ```bash
 source /opt/ros/humble/setup.bash
-## cd /path/to/ros2_ws
-colcon build --symlink-install --packages-up-to tensegrity_bringup
-source install/setup.bash
+source /path/to/ros2_ws/install/setup.bash
 ```
 
-Partial rebuild examples:
+---
 
-```bash
-colcon build --symlink-install --packages-select tensegrity_perception
-colcon build --symlink-install --packages-select tensegrity_driver tensegrity_bringup
-```
+## Nodes & executables
 
-## 6. Source (every new terminal)
+| Command | Purpose |
+|---------|---------|
+| `ros2 run tensegrity_driver tensegrity_driver_node` | Gait driver (same as bringup) |
+| `ros2 run tensegrity_driver robot_driver_direct` | Direct + optional JSON scripts |
+| `ros2 run tensegrity_driver motor_control_test` | Integration test vs `robot_driver_direct` |
 
-```bash
-source /opt/ros/humble/setup.bash
-(source /path/to/ros2_ws/install/setup.bash)
-```
+---
 
-From a monorepo that contains `setup_ros.sh` (if paths match):
-
-```bash
-source /path/to/catkin_ws_new/setup_ros.sh ros2
-```
-
-## 7. Run / launch
-
-**Driver only (robot UDP):**
+## Launch
 
 ```bash
 ros2 launch tensegrity_bringup bringup.py
 ```
 
-**Driver + perception** (expects RGB-D on `/rgb_images` and `/depth_images` unless remapped):
+**Pipeline (driver + perception):**
 
 ```bash
 ros2 launch tensegrity_bringup pipeline.launch.py
+# Optional: launch_astar:=true  launch_rl:=true
+# Camera remap example:
+#   rgb_topic:=/camera/color/image_raw
+#   depth_topic:=/camera/aligned_depth_to_color/image_raw
 ```
 
-**Remap camera topics (RealSense-style example):**
-
-```bash
-ros2 launch tensegrity_bringup pipeline.launch.py \
-  rgb_topic:=/camera/color/image_raw \
-  depth_topic:=/camera/aligned_depth_to_color/image_raw
-```
-
-**Optional stub planners** (still poll `get_pose`; no full A*/RL yet):
-
-```bash
-ros2 launch tensegrity_bringup pipeline.launch.py launch_astar:=true
-# or
-ros2 launch tensegrity_bringup pipeline.launch.py launch_rl:=true
-```
-
-**Perception node alone** (driver must publish `/control_msg` in another terminal):
+**Perception only** (run a driver separately for `/control_msg`):
 
 ```bash
 ros2 launch tensegrity_perception tracking.launch.py
 ```
 
-## 8. Topics / services inspection
+---
+
+## Direct driver (`robot_driver_direct`)
+
+**Simulation (no hardware):**
+
+```bash
+ros2 run tensegrity_driver robot_driver_direct --ros-args \
+  -p use_fake_udp:=true -p fake_udp_hz:=50.0
+```
+
+**Real UDP:** `-p use_fake_udp:=false`.
+
+| Parameter | Default | Meaning |
+|-----------|---------|---------|
+| `use_fake_udp` | `false` | Use `FakeUdpClient` instead of real socket |
+| `fake_udp_hz` | `50.0` | Fake telemetry rate |
+| `motor_command_json_file` | `""` | If set, load this file (skips dir scan) |
+| `motor_command_json_scan` | `true` | Look for a script under `motor_command_json_dir` |
+| `motor_command_json_dir` | `share/.../motor_scripts` or source `tensegrity_driver/motor_scripts` | Script folder |
+| `motor_command_json_basename` | `motor_command.json` | Preferred name; if missing and basename is default, **`motor_command.example.json`** is used |
+| `motor_command_json_loop` | `false` | Repeat script after the last segment |
+
+**JSON schema:** root object with **`commands`** (required, non-empty). Each item: a **number** (speed, uses `defaults`) or **`{ "speed", "motor_id"?, "hold_s"? }`**. Optional **`defaults`:** `motor_id`, `hold_s`.
+
+**Disable auto JSON** (e.g. for `motor_control_test`):
+
+```bash
+-p motor_command_json_scan:=false
+```
+
+---
+
+## Quick test
+
+1. Build + `source install/setup.bash`.
+2. **Direct + fake UDP** (default scan loads `motor_command.example.json` if `motor_command.json` is absent):
+
+   ```bash
+   ros2 run tensegrity_driver robot_driver_direct --ros-args -p use_fake_udp:=true
+   ```
+
+   ```bash
+   ros2 topic hz /control_msg
+   ```
+
+3. **`motor_control_test`** — terminal A:
+
+   ```bash
+   ros2 run tensegrity_driver robot_driver_direct --ros-args \
+     -p use_fake_udp:=true -p motor_command_json_scan:=false
+   ```
+
+   Terminal B:
+
+   ```bash
+   ros2 run tensegrity_driver motor_control_test -- --mode fake --motor-id 2 --sequence 30,0,-30
+   ```
+
+   Options: `--help`, `--control-topic`, `--motor-cmd-topic`, `--timeout`, `--tol`, `--step-sleep`. **`--mode real`** only when the driver uses real UDP.
+
+---
+
+## Topics (summary)
+
+| Topic | Type | Producer |
+|-------|------|----------|
+| `/control_msg` | `tensegrity_interfaces/msg/TensegrityStamped` | Both drivers (`RobotConfig.ros_control_topic`, default `/control_msg`) |
+| `/state_msg` | `tensegrity_interfaces/msg/State` | Gait node only |
+| `/action_msg` | `tensegrity_interfaces/msg/Action` | Gait node (sub) |
+| `/motor_cmd` | `tensegrity_interfaces/msg/MotorCommand` | Direct node (sub) |
+
+**Perception:** `/rgb_images`, `/depth_images` (remap as needed), `/trajectory_images`, services `/init_tracker`, `/get_pose`, `/get_bar_height` — see `tensegrity_perception` and `pipeline.launch.py`.
 
 ```bash
 ros2 topic list
 ros2 topic echo /control_msg --once
-ros2 topic echo /state_msg --once
-ros2 topic hz /control_msg
-ros2 service list | grep -E 'pose|tracker|bar'
-ros2 interface show tensegrity_perception/srv/GetPose
-ros2 interface show tensegrity_perception/srv/InitTracker
-```
-
-**Call `get_pose`** (after successful `init_tracker`):
-
-```bash
 ros2 service call /get_pose tensegrity_perception/srv/GetPose "{}"
 ```
 
-`init_tracker` requires images and arrays; use a small Python script or a one-off node in the lab, or call from your own tooling with `ros2 interface proto` to build the request.
+---
 
-## 9. Topic contract (quick)
+## Hardware checklist
 
-| Direction | Topic | Type |
-|-----------|--------|------|
-| Driver → perception | `/control_msg` | `tensegrity_interfaces/msg/TensegrityStamped` |
-| Camera → perception | `/rgb_images`, `/depth_images` (remap as needed) | `sensor_msgs/msg/Image` |
-| Perception → viz | `/trajectory_images` (remap via `trajectory_topic`) | `sensor_msgs/msg/Image` |
-| Driver → planners | `/state_msg` | `tensegrity_interfaces/msg/State` |
-| Planners → driver | `/action_msg` | `tensegrity_interfaces/msg/Action` |
-
-Services: `/init_tracker`, `/get_pose`, `/get_bar_height` (`tensegrity_perception`).
-
-## 10. Hardware verification (short)
-
-1. **Network:** Ping the robot or verify the PC listens on `RobotConfig.UDP_IP` / `UDP_PORT` (default `0.0.0.0:2390`) and Arduinos match the sketch.
-2. **Driver only:** Launch `bringup.py`, confirm `ros2 topic hz /control_msg` is ~50 Hz and `ros2 topic echo /control_msg` shows updating `motors` / `sensors`.
-3. **Camera:** With the RGB-D driver running, confirm `ros2 topic hz` on your color and depth topics; remapped names should match `pipeline.launch.py` arguments.
-4. **Pipeline:** Launch `pipeline.launch.py` with remaps; confirm no fatal errors from `tracking_service` (meshes load). Initialize the tracker (`init_tracker`) with a synchronized snapshot; then `ros2 service call /get_pose ...` returns `success: true` and a non-empty `poses` when the scene is valid.
-5. **Planners (optional):** With `launch_astar:=true`, watch logs for `get_pose: N rod pose(s)` when the tracker is ready.
-
-Replace the placeholder rod mesh (`mesh/rod_strut_placeholder.obj`) with your calibrated strut model if tracking quality is poor.
+1. PC listens on configured UDP; Arduinos match firmware port.
+2. After bringup or direct driver: `ros2 topic hz /control_msg` ~50 Hz; echo shows updating motors/sensors.
+3. Pipeline: cameras, `init_tracker`, then `get_pose` when the scene is valid.
+4. Replace placeholder rod meshes if tracking is poor.

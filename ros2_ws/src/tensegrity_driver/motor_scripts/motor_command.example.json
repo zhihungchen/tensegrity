@@ -1,0 +1,28 @@
+{
+  "defaults": {
+    "motor_id": 0,
+    "hold_s": 0
+  },
+  "commands": [
+    { "motor_id": 0, "speed": 25 },
+    { "motor_id": 1, "speed": 25 },
+    { "motor_id": 2, "speed": 25 },
+    { "motor_id": 3, "speed": 25 },
+    { "motor_id": 4, "speed": 25 },
+    { "motor_id": 5, "speed": 25, "hold_s": 1.0 },
+
+    { "motor_id": 0, "speed": -25 },
+    { "motor_id": 1, "speed": -25 },
+    { "motor_id": 2, "speed": -25 },
+    { "motor_id": 3, "speed": -25 },
+    { "motor_id": 4, "speed": -25 },
+    { "motor_id": 5, "speed": -25, "hold_s": 1.0 },
+
+    { "motor_id": 0, "speed": 0 },
+    { "motor_id": 1, "speed": 0 },
+    { "motor_id": 2, "speed": 0 },
+    { "motor_id": 3, "speed": 0 },
+    { "motor_id": 4, "speed": 0 },
+    { "motor_id": 5, "speed": 0, "hold_s": 0.5 }
+  ]
+}

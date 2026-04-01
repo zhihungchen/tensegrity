@@ -37,6 +37,9 @@ class RobotConfig:
     UDP_IP: str = "0.0.0.0"     # Listen to all interfaces
     UDP_PORT: int = 2390        # Must match Arduino sketch
     recv_buf_size: int = 255    # max bytes per packet
+    # RX debug logging. Set interval to 0.0 to print every packet.
+    debug_udp: bool = True
+    debug_udp_min_interval_s: float = 0.0
 
     # ---- ROS ----
     ros_node_name: str = "tensegrity_driver"

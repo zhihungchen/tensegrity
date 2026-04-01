@@ -4,6 +4,7 @@ import time
 import math
 from math import cos, sin
 import json
+import threading
 import xlrd
 import numpy as np
 from scipy.spatial.transform import Rotation as R
@@ -13,6 +14,7 @@ from tensegrity_core.command_bus import CommandBus
 #from tensegrity_interfaces.msg import Motor, Info, Sensor, Imu, TensegrityStamped
 
 from tensegrity_core.robot_config import RobotConfig
+from tensegrity_core.state_snapshot import RobotStateSnapshot
 from tensegrity_core.controllers.gait_pid import GaitPidController
 
 
@@ -72,7 +74,7 @@ class TensegrityCore:
         self.UDP_IP = cfg.UDP_IP  # Listen to all incoming interfaces
         self.UDP_PORT = cfg.UDP_PORT     # Same port used in the Arduino sketch
         print("Running UDP connection with Arduino's: ")
-        self.udp_client = udp_client if udp_client is not None else UdpClient(self.UDP_IP, self.UDP_PORT)
+        self.udp_client = udp_client if udp_client is not None else UdpClient(self.UDP_IP, self.UDP_PORT, self.cfg.recv_buf_size)
         #self.addresses = [("172.16.71.78",11311), ("172.16.71.79",11311), ("172.16.71.80",11311)] #[None] * self.num_arduino
         self.addresses = [None] * self.num_arduino
         self.offset = None # Nb of leading end ending 0 preventing errors 
@@ -106,7 +108,13 @@ class TensegrityCore:
 
         self.current_motor_speeds = [0] * self.num_motors
 
-    
+        # Background RX: recv -> parse -> latest state (no control policy in this thread).
+        self._state_lock = threading.RLock()
+        self._rx_stop = threading.Event()
+        self._rx_thread = None
+        self._rx_started = False
+        self._last_udp_debug_t = 0.0
+
     #----------------------------------------------------------------------#
     def load_states_from_json(self, path):
         try:
@@ -328,10 +336,204 @@ class TensegrityCore:
             delay_time = 0
         time.sleep(delay_time/1000)
 
-    def stop_all(self):
-        for addr in self.addresses:
+    def _send_stop_to_addrs(self, addrs):
+        """Send stop command to each address (caller must not hold _state_lock)."""
+        for addr in addrs:
             if addr is not None:
                 self.send_command(self.stop_msg, addr, 0)
+
+    def stop_all(self):
+        with self._state_lock:
+            addrs = list(self.addresses)
+        self._send_stop_to_addrs(addrs)
+
+    def start(self):
+        """Start one background RX thread: recv -> parse -> update latest state."""
+        if self._rx_started:
+            return
+        self._rx_stop.clear()
+        self._rx_thread = threading.Thread(
+            target=self._rx_thread_main, name="tensegrity_udp_rx", daemon=True
+        )
+        self._rx_thread.start()
+        self._rx_started = True
+
+    def stop(self):
+        """Stop RX thread (closes recv socket so recvfrom unblocks)."""
+        if not self._rx_started:
+            return
+        self._rx_stop.set()
+        closer = getattr(self.udp_client, "close_recv", None)
+        if callable(closer):
+            closer()
+        if self._rx_thread is not None:
+            self._rx_thread.join(timeout=2.0)
+        self._rx_thread = None
+        self._rx_started = False
+
+    def _rx_thread_main(self):
+        while not self._rx_stop.is_set():
+            try:
+                received_data, sensor_array, addr = self.udp_client.recv_packet()
+            except OSError:
+                break
+            except Exception:
+                if self._rx_stop.is_set():
+                    break
+                continue
+            try:
+                to_stop = self._apply_udp_packet(received_data, sensor_array, addr)
+                if to_stop:
+                    self._send_stop_to_addrs(to_stop)
+            except Exception:
+                pass
+
+    def _maybe_debug_rx(self, received_data, sensor_array, addr):
+        if not self.cfg.debug_udp:
+            return
+        now = time.monotonic()
+        if now - self._last_udp_debug_t < self.cfg.debug_udp_min_interval_s:
+            return
+        self._last_udp_debug_t = now
+        n = len(sensor_array) if sensor_array is not None else 0
+        preview = received_data[:120] + ("..." if len(received_data) > 120 else "")
+        print(f"[UDP debug] addr={addr} floats={n} data={received_data}")
+
+    def _apply_udp_packet(self, received_data, sensor_array, addr):
+        """
+        Parse one datagram; update state under lock.
+        Returns a list of addresses to send stop to (empty if none). Caller sends without lock.
+        """
+        stop_targets = []
+        with self._state_lock:
+            self._maybe_debug_rx(received_data, sensor_array, addr)
+            if sensor_array is None:
+                return []
+
+            if addr not in self.addresses:
+                self.addresses[int(sensor_array[0])] = addr
+
+            if self.record_fp is not None and received_data:
+                self.record_fp.write(received_data.strip() + "\n")
+
+            """
+            3-bar tensegrity layout (from original read()):
+            Rod 0: sensors C,E,I (2,4,8), motors 2,4
+            Rod 1: sensors B,D,H (1,3,7), motors 1,3
+            Rod 2: sensors A,F,G (0,5,6), motors 0,5
+            """
+            if len(sensor_array) == 13:
+                self.which_Arduino = int(sensor_array[0])
+                if self.cfg.debug_udp and (
+                    sensor_array[1] == 0.2
+                    or sensor_array[2] == 0.2
+                    or sensor_array[3] == 0.2
+                ):
+                    print(
+                        "MPR121 or I2C of Arduino "
+                        + str(self.which_Arduino)
+                        + " wrongly initialized, please reboot Arduino"
+                    )
+
+                if int(sensor_array[0]) == 0:
+                    self.cap[4] = sensor_array[1]
+                    self.cap[2] = sensor_array[2]
+                    self.cap[8] = sensor_array[3]
+                    self.encoder_counts[4] = sensor_array[6]
+                    self.encoder_counts[2] = sensor_array[5]
+                if int(sensor_array[0]) == 1:
+                    self.cap[3] = sensor_array[1]
+                    self.cap[1] = sensor_array[2]
+                    self.cap[7] = sensor_array[3]
+                    self.encoder_counts[3] = sensor_array[6]
+                    self.encoder_counts[1] = sensor_array[5]
+                if int(sensor_array[0]) == 2:
+                    self.cap[5] = sensor_array[1]
+                    self.cap[0] = sensor_array[2]
+                    self.cap[6] = sensor_array[3]
+                    self.encoder_counts[5] = sensor_array[6]
+                    self.encoder_counts[0] = sensor_array[5]
+
+                self.encoder_length = [
+                    counts
+                    / self.encoder_resolution
+                    / self.gear_ratio
+                    * np.pi
+                    * self.winch_diameter
+                    for counts in self.encoder_counts
+                ]
+
+                if 0.2 not in self.cap:
+                    for i in range(len(self.cap)):
+                        self.length[i] = float((self.cap[i] - self.b[i]) / self.m[i])
+                    for i in range(self.num_motors):
+                        if i < 3:
+                            self.pos[i] = float(
+                                (self.length[i] - self.min_length) / self.LEFT_RANGE
+                            )
+                        else:
+                            self.pos[i] = float(
+                                (self.length[i] - self.min_length) / self.RANGE
+                            )
+
+                self.accelerometer[self.which_Arduino][0] = sensor_array[7]
+                self.accelerometer[self.which_Arduino][1] = sensor_array[8]
+                self.accelerometer[self.which_Arduino][2] = sensor_array[9]
+                self.gyroscope[self.which_Arduino][0] = sensor_array[10]
+                self.gyroscope[self.which_Arduino][1] = sensor_array[11]
+                self.gyroscope[self.which_Arduino][2] = sensor_array[12]
+
+            else:
+                if None in self.addresses:
+                    for i in range(len(self.addresses)):
+                        if self.addresses[i] is None:
+                            if self.cfg.debug_udp:
+                                print(
+                                    "Arduino "
+                                    + str(i)
+                                    + " wrongly initialized, please reboot Arduino"
+                                )
+                        else:
+                            stop_targets.append(self.addresses[i])
+                else:
+                    if self.cfg.debug_udp:
+                        print("[UDP] unexpected packet length; issuing stop")
+                    stop_targets = [a for a in self.addresses if a is not None]
+
+        return stop_targets
+
+    def get_latest_state(self) -> RobotStateSnapshot:
+        """Thread-safe copy of latest parsed robot state (for ROS publish / control)."""
+        with self._state_lock:
+            return RobotStateSnapshot(
+                pos=list(self.pos),
+                cap=list(self.cap),
+                length=list(self.length),
+                encoder_counts=list(self.encoder_counts),
+                encoder_length=list(self.encoder_length),
+                current_motor_speeds=list(self.current_motor_speeds),
+                accelerometer=[row[:] for row in self.accelerometer],
+                gyroscope=[row[:] for row in self.gyroscope],
+                which_Arduino=self.which_Arduino,
+                addresses=list(self.addresses),
+            )
+
+    def send_motor_speeds(self, speeds):
+        """
+        Primary TX API: full motor speed vector, broadcast to all known Arduinos.
+        """
+        if len(speeds) != self.num_motors:
+            raise ValueError(
+                f"Expected {self.num_motors} motor speeds, got {len(speeds)}"
+            )
+        with self._state_lock:
+            if None in self.addresses:
+                raise RuntimeError("Arduino addresses are not fully discovered yet")
+            self.current_motor_speeds = [int(s) for s in speeds]
+            cmd = self.build_motor_command(self.current_motor_speeds)
+            addrs = [a for a in self.addresses if a is not None]
+        for addr in addrs:
+            self.send_command(cmd, addr, 0)
 
     def set_gait_state(self, index: int) -> None:
         """Set current gait step (for external/planning control). No ROS dependency."""
@@ -391,15 +593,14 @@ class TensegrityCore:
             return
         self._last_sent = out
 
-        # old code sent to all arduinos
-        for addr in self.addresses:
-            if addr is not None:
-                self.send_command(out, addr, 0)
-
+        with self._state_lock:
+            addrs = [a for a in self.addresses if a is not None]
+        for addr in addrs:
+            self.send_command(out, addr, 0)
 
     def is_ready(self) -> bool:
-        return None not in self.addresses
-
+        with self._state_lock:
+            return None not in self.addresses
 
     def build_motor_command(self, speeds):
         """
@@ -417,7 +618,6 @@ class TensegrityCore:
             msg[self.offset + i] = str(speed_i * int(self.flip[i]))
         return " ".join(msg)
 
-
     def motor_to_arduino(self, motor_id: int) -> int:
         mapping = {
             0: 2,
@@ -430,106 +630,25 @@ class TensegrityCore:
         return mapping[motor_id]
 
     def set_motor_speed(self, motor_id, speed):
+        """Update one motor in the speed vector and send via send_motor_speeds."""
         if not (0 <= motor_id < self.num_motors):
             raise IndexError(f"motor_id {motor_id} out of range")
-
-        if not self.is_ready():
-            raise RuntimeError("Arduino addresses are not fully discovered yet")
-
-        self.current_motor_speeds[motor_id] = int(speed)
-
-        cmd = self.build_motor_command(self.current_motor_speeds)
-        target_arduino = self.motor_to_arduino(motor_id)
-
-        self.send_command(cmd, self.addresses[target_arduino], 0)
+        with self._state_lock:
+            speeds = list(self.current_motor_speeds)
+        speeds[motor_id] = int(speed)
+        self.send_motor_speeds(speeds)
 
     def read(self):
+        """
+        Blocking: receive and apply one packet. For CLI `run()` without start().
+        Do not use together with start() on the same socket.
+        """
         received_data, sensor_array, addr = self.udp_client.recv_packet()
-        print("[RX addr:", addr)
-        print(received_data)
-        if sensor_array is None:
-            return
-        print(sensor_array)
-        if(addr not in self.addresses):
-            self.addresses[int(sensor_array[0])] = addr
+        to_stop = self._apply_udp_packet(received_data, sensor_array, addr)
+        if to_stop:
+            self._send_stop_to_addrs(to_stop)
 
-        if self.record_fp is not None and received_data:
-            self.record_fp.write(received_data.strip() + "\n")
 
-        #print(sensor_array)
-        """
-        Following code of function read(self) configurated for a 3 bar tensegrity with following sensors
-        Rod 0 (red) has sensors C, E, and I (2, 4, and 8) and motors 2 and 4
-        Rod 1 (green) has sensors B, D, and H (1, 3, and 7) and motors 1 and 3
-        Rod 2 (blue) has sensors A, F, and G (0, 5, and 6) and motors 0 and 5
-        
-        The first IMU is on the blue bar and points from node 5 to node 4
-        The second IMU is on the red bar and points from node 1 to node 0
-        """
-        if(len(sensor_array) == 13) : #Number of data send space
-            self.which_Arduino = int(sensor_array[0])
-            if(sensor_array[1] == 0.2 or sensor_array[2] == 0.2 or sensor_array[3] == 0.2 ) :
-                print('MPR121 or I2C of Arduino '+str(self.which_Arduino)+' wrongly initialized, please reboot Arduino')
-
-            if(int(sensor_array[0]) == 0) :
-                self.cap[4] = sensor_array[1]
-                self.cap[2] = sensor_array[2]
-                self.cap[8] = sensor_array[3]
-                self.encoder_counts[4] = sensor_array[6]
-                self.encoder_counts[2] = sensor_array[5]
-            if(int(sensor_array[0]) == 1) :
-                self.cap[3] = sensor_array[1]
-                self.cap[1] = sensor_array[2] 
-                self.cap[7] = sensor_array[3]
-                self.encoder_counts[3] = sensor_array[6]
-                self.encoder_counts[1] = sensor_array[5]
-            if(int(sensor_array[0]) == 2) :
-                self.cap[5] = sensor_array[1]
-                self.cap[0] = sensor_array[2] 
-                self.cap[6] = sensor_array[3]
-                self.encoder_counts[5] = sensor_array[6]
-                self.encoder_counts[0] = sensor_array[5]
-
-            self.encoder_length = [counts/self.encoder_resolution/self.gear_ratio*np.pi*self.winch_diameter for counts in self.encoder_counts]
-            
-            #add control code here
-            if not 0.2 in self.cap: #Default capacitance value of MPR121
-                for i in range(len(self.cap)) :
-                    self.length[i] = float((self.cap[i] - self.b[i]) / self.m[i]) #mm 
-                #check if motor reached the target
-                for i in range(self.num_motors):
-                    if i < 3:
-                        self.pos[i] = float((self.length[i] - self.min_length) / self.LEFT_RANGE)# calculate the current position of the motor
-                    else:
-                        self.pos[i] = float((self.length[i] - self.min_length) / self.RANGE)# calculate the current position of the motor   
-            # #read imu data
-            # if(sensor_array[0] == 0) :
-            #     self.imu[1] = self.quat2vec(sensor_array[1:5])
-
-            # if(sensor_array[0] == 2) :
-            #     self.imu[0] = self.quat2vec(sensor_array[1:5])
-
-            #if(sensor_array[0] == 3) : If 3 IMU's used
-            #   self.imu[3] = self.quat2vec(sensor_array[1:5])
-            self.accelerometer[self.which_Arduino][0] = sensor_array[7] # ax
-            self.accelerometer[self.which_Arduino][1] = sensor_array[8] # ay
-            self.accelerometer[self.which_Arduino][2] = sensor_array[9] # az
-            self.gyroscope[self.which_Arduino][0] = sensor_array[10]    # gx
-            self.gyroscope[self.which_Arduino][1] = sensor_array[11]    # gy
-            self.gyroscope[self.which_Arduino][2] = sensor_array[12]    # gz
-
-        else:
-            if (None in self.addresses) :
-                for i in range(len(self.addresses)):
-                    if(self.addresses[i] == None) : 
-                        print('Arduino '+str(i)+' wrongly initialized, please reboot Arduino')
-                    else:     
-                        self.send_command(self.stop_msg, self.addresses[i],0)
-            else:
-                print('+')
-                self.stop_all()
-            
-    
     # def compute_command(self) :
     #     command_msg = self.stop_msg.split()
     #     for i in range(self.num_motors):

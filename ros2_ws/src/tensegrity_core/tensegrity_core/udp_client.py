@@ -9,6 +9,13 @@ class UdpClient:
         self.sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock_receive.bind((ip, port))
 
+    def close_recv(self) -> None:
+        """Close the receive socket so a blocking recvfrom() unblocks (shutdown)."""
+        try:
+            self.sock_receive.close()
+        except OSError:
+            pass
+
     def send(self, payload: str, addr: Tuple[str, int]) -> None:
         self.sock_send.sendto(payload.encode('utf-8'), addr)
 
