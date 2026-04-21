@@ -1,0 +1,4 @@
+recursive-include mujoco_simulator/xml_models *.xml
+recursive-include mujoco_simulator/xml_models/common *.xml
+recursive-include mujoco_simulator/xml_models/common *.py
+recursive-include mujoco_simulator *.md

@@ -3,7 +3,7 @@
 Motor command simulation/integration test for robot_driver_direct.
 
 This module validates the direct control path:
-  /motor_cmd (MotorCommand) -> robot_driver_direct -> /control_msg (TensegrityStamped)
+  /motor_speeds (Float64MultiArray) -> robot_driver_direct -> /control_msg (TensegrityStamped)
 
 Modes:
   - fake: run robot_driver_direct with use_fake_udp:=true
@@ -18,8 +18,9 @@ from typing import Dict, List
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import HistoryPolicy, QoSProfile, ReliabilityPolicy
+from std_msgs.msg import Float64MultiArray
 
-from tensegrity_interfaces.msg import MotorCommand, TensegrityStamped
+from tensegrity_interfaces.msg import TensegrityStamped
 
 
 @dataclass
@@ -44,12 +45,12 @@ class MotorControlTestNode(Node):
         self.tol = args.tol
         self.step_sleep_s = args.step_sleep
         self.control_topic = args.control_topic
-        self.motor_cmd_topic = args.motor_cmd_topic
+        self.motor_speeds_topic = args.motor_speeds_topic
 
         self._latest_speeds: Dict[int, float] = {}
         self._control_seen = False
 
-        self._pub = self.create_publisher(MotorCommand, self.motor_cmd_topic, qos)
+        self._pub = self.create_publisher(Float64MultiArray, self.motor_speeds_topic, qos)
         self._sub = self.create_subscription(
             TensegrityStamped,
             self.control_topic,
@@ -67,13 +68,14 @@ class MotorControlTestNode(Node):
         for motor in msg.motors:
             self._latest_speeds[int(motor.id)] = float(motor.speed)
 
-    def _publish_motor_cmd(self, motor_id: int, speed: float):
-        msg = MotorCommand()
-        msg.motor_id = int(motor_id)
-        msg.speed = float(speed)
+    def _publish_motor_speeds(self, motor_id: int, speed: float):
+        data = [0.0] * 6
+        data[int(motor_id)] = float(speed)
+        msg = Float64MultiArray()
+        msg.data = data
         self._pub.publish(msg)
         self.get_logger().info(
-            f"publish {self.motor_cmd_topic}: motor_id={motor_id}, speed={speed:.3f}"
+            f"publish {self.motor_speeds_topic}: {data}"
         )
 
     def _spin_for(self, duration_s: float):
@@ -118,7 +120,7 @@ class MotorControlTestNode(Node):
         self.get_logger().info(f"Detected {self.control_topic}; running {len(self.sequence)} steps.")
         all_ok = True
         for idx, step in enumerate(self.sequence, start=1):
-            self._publish_motor_cmd(step.motor_id, step.speed)
+            self._publish_motor_speeds(step.motor_id, step.speed)
             ok = self._wait_motor_speed(step.motor_id, step.speed, timeout_s=self.timeout_s)
             if ok:
                 self.get_logger().info(
@@ -134,7 +136,7 @@ class MotorControlTestNode(Node):
             self._spin_for(self.step_sleep_s)
 
         # Always command stop at end for safety.
-        self._publish_motor_cmd(self.motor_id, 0.0)
+        self._publish_motor_speeds(self.motor_id, 0.0)
         self._spin_for(0.2)
 
         if all_ok:
@@ -198,10 +200,10 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         help="Observed control topic.",
     )
     parser.add_argument(
-        "--motor-cmd-topic",
+        "--motor-speeds-topic",
         type=str,
-        default="/motor_cmd",
-        help="Motor command topic to publish.",
+        default="/motor_speeds",
+        help="Motor speed vector topic to publish.",
     )
     return parser
 
@@ -220,7 +222,7 @@ def main(args=None):
         code = 3
     finally:
         try:
-            node._publish_motor_cmd(node.motor_id, 0.0)
+            node._publish_motor_speeds(node.motor_id, 0.0)
         except Exception:
             pass
         node.destroy_node()
